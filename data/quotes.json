@@ -1,0 +1,138 @@
+{
+  "general": [
+    {
+      "id": "bismillah",
+      "text": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
+      "source": "القرآن الكريم",
+      "category": "general"
+    },
+    {
+      "id": "ayat-kursi-start",
+      "text": "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّوم",
+      "source": "آية الكرسي",
+      "category": "general"
+    },
+    {
+      "id": "subhanallah",
+      "text": "سُبْحَانَ اللهِ وَبِحَمْدِهِ",
+      "source": "ذكر",
+      "category": "general"
+    },
+    {
+      "id": "alhamdulillah",
+      "text": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+      "source": "القرآن الكريم",
+      "category": "general"
+    },
+    {
+      "id": "la-ilaha-illallah",
+      "text": "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ",
+      "source": "الشهادة",
+      "category": "general"
+    },
+    {
+      "id": "allah-hu-akbar",
+      "text": "اللَّهُ أَكْبَرُ",
+      "source": "تكبير",
+      "category": "general"
+    },
+    {
+      "id": "ayat-kursi-middle",
+      "text": "لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ",
+      "source": "آية الكرسي",
+      "category": "general"
+    },
+    {
+      "id": "rabbi-zidni",
+      "text": "رَبِّ زِدْنِي عِلْمًا",
+      "source": "القرآن الكريم",
+      "category": "general"
+    }
+  ],
+  "pre-prayer": [
+    {
+      "id": "haya-ala-salah",
+      "text": "حَيَّ عَلَى الصَّلَاةِ",
+      "source": "الأذان",
+      "category": "pre-prayer"
+    },
+    {
+      "id": "prepare-prayer",
+      "text": "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَجِيبُوا لِلَّهِ وَلِلرَّسُولِ",
+      "source": "القرآن الكريم 8:24",
+      "category": "pre-prayer"
+    },
+    {
+      "id": "wuhan-hadith",
+      "text": "الطُّهُورُ شَطْرُ الْإِيمَانِ",
+      "source": "حديث شريف",
+      "category": "pre-prayer"
+    },
+    {
+      "id": "turn-phones",
+      "text": "يُرْجَى إِيقَافُ الهَوَاتِفِ النَّقَّالَةِ",
+      "source": "تنبيه",
+      "category": "pre-prayer"
+    }
+  ],
+  "post-prayer": [
+    {
+      "id": "astaghfirullah",
+      "text": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ",
+      "source": "الذكر بعد الصلاة",
+      "category": "post-prayer"
+    },
+    {
+      "id": "subhan-rabb",
+      "text": "سُبْحَانَ رَبِّكَ رَبِّ الْعِزَّةِ",
+      "source": "القرآن الكريم 37:180",
+      "category": "post-prayer"
+    },
+    {
+      "id": "la-hawla",
+      "text": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "source": "ذكر",
+      "category": "post-prayer"
+    },
+    {
+      "id": "allahumma-inni",
+      "text": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى",
+      "source": "دعاء",
+      "category": "post-prayer"
+    }
+  ],
+  "friday": [
+    {
+      "id": "friday-khutbah",
+      "text": "يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا نُودِيَ لِلصَّلَاةِ مِن يَوْمِ الْجُمُعَةِ فَاسْعَوْا إِلَى ذِكْرِ اللَّهِ",
+      "source": "القرآن الكريم 62:9",
+      "category": "friday"
+    },
+    {
+      "id": "best-day",
+      "text": "خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ",
+      "source": "النبي ﷺ",
+      "category": "friday"
+    },
+    {
+      "id": "greetings-friday",
+      "text": "جُمْعَةٌ مُبَارَكَةٌ",
+      "source": "تهنئة",
+      "category": "friday"
+    }
+  ],
+  "ramadan": [
+    {
+      "id": "ramadan-greeting",
+      "text": "رَمَضَانُ كَرِيمٌ",
+      "source": "تهنئة",
+      "category": "ramadan"
+    },
+    {
+      "id": "ramadan-mubarak",
+      "text": "عِيدُكُم مُبَارَكٌ",
+      "source": "تهنئة",
+      "category": "ramadan"
+    }
+  ]
+}

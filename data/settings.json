@@ -1,0 +1,51 @@
+{
+  "mosque": {
+    "name": "مسجد الحودة",
+    "logo": null
+  },
+  "location": {
+    "city": "مكة المكرمة",
+    "country": "المملكة العربية السعودية",
+    "coordinates": {
+      "lat": 21.4225,
+      "lng": 39.8262
+    }
+  },
+  "theme": {
+    "colors": {
+      "primary": "#1DCD9F",
+      "dark": "#222222",
+      "light": "#F1EFEC",
+      "accent": "#D4C9BE"
+    },
+    "font": "Cairo",
+    "background": null
+  },
+  "prayer": {
+    "calculationMethod": 1,
+    "asrMethod": 1,
+    "iqamaAdjustments": {
+      "Fajr": 10,
+      "Dhuhr": 10,
+      "Asr": 10,
+      "Maghrib": 5,
+      "Isha": 10
+    },
+    "useManualTimes": false
+  },
+  "sound": {
+    "enabled": true,
+    "type": "adhan",
+    "volume": 0.8
+  },
+  "display": {
+    "temperatureUnit": "celsius",
+    "showTemperature": true,
+    "showDate": true,
+    "showHijri": true,
+    "quoteIntervalMinutes": 5,
+    "prePrayerWindowMinutes": 2,
+    "adhanDurationMinutes": 3,
+    "postPrayerDurationMinutes": 4
+  }
+}

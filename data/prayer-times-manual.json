@@ -1,0 +1,15 @@
+{
+  "note": "This file is used for manual prayer times. Set useManualTimes to true in settings.json to use these times instead of API-calculated times.",
+  "dates": [
+    {
+      "date": "2024-01-01",
+      "prayers": {
+        "Fajr": "05:30",
+        "Dhuhr": "12:15",
+        "Asr": "15:30",
+        "Maghrib": "18:15",
+        "Isha": "19:45"
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "note": "Conditional quotes that display based on specific conditions (time, day, prayer, etc.)",
+  "rules": [
+    {
+      "id": "friday-dhuhr",
+      "name": "جمعة - الظهر",
+      "enabled": true,
+      "priority": 10,
+      "conditions": [
+        {
+          "type": "day",
+          "days": [5]
+        },
+        {
+          "type": "prayer",
+          "prayers": ["Dhuhr"]
+        }
+      ],
+      "quote": {
+        "id": "friday-special",
+        "text": "خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ",
+        "source": "النبي ﷺ"
+      }
+    },
+    {
+      "id": "ramadan-greetings",
+      "name": "رمضان كريم",
+      "enabled": true,
+      "priority": 8,
+      "conditions": [
+        {
+          "type": "hijri-month",
+          "hijriMonths": [9]
+        }
+      ],
+      "quote": {
+        "id": "ramadan-mubarak",
+        "text": "رَمَضَانُ كَرِيمٌ",
+        "source": "تهنئة"
+      }
+    },
+    {
+      "id": "fajr-morning",
+      "name": "صباح الخير - الفجر",
+      "enabled": true,
+      "priority": 5,
+      "conditions": [
+        {
+          "type": "time",
+          "operator": "between",
+          "value": ["04:00", "06:00"]
+        }
+      ],
+      "quote": {
+        "id": "morning-dhikr",
+        "text": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ",
+        "source": "أذكار الصباح"
+      }
+    },
+    {
+      "id": "evening-dhikr",
+      "name": "أذكار المساء",
+      "enabled": true,
+      "priority": 5,
+      "conditions": [
+        {
+          "type": "time",
+          "operator": "between",
+          "value": ["18:00", "20:00"]
+        }
+      ],
+      "quote": {
+        "id": "evening-rememberance",
+        "text": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ",
+        "source": "أذكار المساء"
+      }
+    }
+  ]
+}
