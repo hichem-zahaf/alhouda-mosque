@@ -5,7 +5,7 @@
 'use client';
 
 import { usePrayerStore } from '@/store';
-import { formatCountdown, toArabicNumerals } from '@/lib/utils/countdown-timer';
+import { formatCountdown } from '@/lib/utils/countdown-timer';
 import { isFriday } from '@/lib/utils/date-formatter';
 import { Clock } from 'lucide-react';
 

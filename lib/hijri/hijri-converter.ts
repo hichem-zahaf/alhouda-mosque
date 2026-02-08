@@ -67,13 +67,10 @@ export function toHijri(gregorianDate: Date = new Date()): HijriDate {
 }
 
 /**
- * Format Hijri date with Arabic numerals
+ * Format Hijri date
  */
 export function formatHijriArabic(hijriDate: HijriDate): string {
-  const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  const toArabic = (num: number) => String(num).replace(/\d/g, (d) => arabicNumerals[parseInt(d)]);
-
-  return `${toArabic(hijriDate.day)} ${hijriDate.monthName} ${toArabic(hijriDate.year)}`;
+  return `${hijriDate.day} ${hijriDate.monthName} ${hijriDate.year}`;
 }
 
 /**

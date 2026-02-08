@@ -6,7 +6,6 @@
 
 import { useCurrentTime } from '@/hooks/use-current-time';
 import { calculateCountdown } from '@/lib/utils/countdown-timer';
-import { toArabicNumerals } from '@/lib/utils/date-formatter';
 import type { PrayerTime } from '@/store/use-prayer-store';
 
 interface PrayerCardProps {
@@ -19,7 +18,7 @@ export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
 
   const getCountdown = () => {
     const countdown = calculateCountdown(prayer.time, time.date);
-    return countdown.isPast ? '٠٠:٠٠' : countdown.formatted;
+    return countdown.isPast ? '00:00' : countdown.formatted;
   };
 
   return (
@@ -51,14 +50,14 @@ export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
           <div>
             <p className="text-sm text-accent-d4 mb-1">الأذان</p>
             <p className="text-3xl font-semibold text-light-f1">
-              {toArabicNumerals(prayer.time)}
+              {prayer.time}
             </p>
           </div>
 
           <div className="border-t border-primary/20 pt-2">
             <p className="text-sm text-accent-d4 mb-1">الإقامة</p>
             <p className="text-xl font-medium text-accent-d4">
-              {toArabicNumerals(prayer.iqamaTime)}
+              {prayer.iqamaTime}
             </p>
           </div>
 

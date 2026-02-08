@@ -5,7 +5,6 @@
 'use client';
 
 import { useCurrentTime } from '@/hooks/use-current-time';
-import { toArabicNumerals } from '@/lib/utils/date-formatter';
 
 interface ClockProps {
   className?: string;
@@ -16,9 +15,9 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
   const time = useCurrentTime();
 
   const formatTime = () => {
-    const hours = toArabicNumerals(String(time.hours).padStart(2, '0'));
-    const minutes = toArabicNumerals(String(time.minutes).padStart(2, '0'));
-    const seconds = toArabicNumerals(String(time.seconds).padStart(2, '0'));
+    const hours = String(time.hours).padStart(2, '0');
+    const minutes = String(time.minutes).padStart(2, '0');
+    const seconds = String(time.seconds).padStart(2, '0');
 
     if (showSeconds) {
       return `${hours}:${minutes}:${seconds}`;

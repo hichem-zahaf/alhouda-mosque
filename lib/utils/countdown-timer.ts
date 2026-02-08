@@ -77,7 +77,7 @@ function formatCountdownTime(hours: number, minutes: number, seconds: number): s
 }
 
 /**
- * Format countdown in Arabic words
+ * Format countdown in words
  */
 function formatCountdownWords(
   hours: number,
@@ -88,11 +88,11 @@ function formatCountdownWords(
   const parts: string[] = [];
 
   if (hours > 0) {
-    parts.push(`${toArabicNumerals(hours)} ${hours === 1 ? 'ساعة' : 'ساعات'}`);
+    parts.push(`${hours} ${hours === 1 ? 'ساعة' : 'ساعات'}`);
   }
 
   if (minutes > 0) {
-    parts.push(`${toArabicNumerals(minutes)} ${minutes === 1 ? 'دقيقة' : 'دقائق'}`);
+    parts.push(`${minutes} ${minutes === 1 ? 'دقيقة' : 'دقائق'}`);
   }
 
   if (parts.length === 0 && seconds > 0) {
@@ -106,14 +106,6 @@ function formatCountdownWords(
   }
 
   return timeStr;
-}
-
-/**
- * Convert numbers to Arabic numerals
- */
-export function toArabicNumerals(num: number | string): string {
-  const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return String(num).replace(/\d/g, (digit) => arabicNumerals[parseInt(digit)]);
 }
 
 /**

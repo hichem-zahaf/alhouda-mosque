@@ -76,22 +76,14 @@ export function formatArabicDate(date: Date = new Date()): ArabicDate {
 }
 
 /**
- * Convert Arabic numbers to Eastern Arabic numerals
- */
-export function toArabicNumerals(num: string | number): string {
-  const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return String(num).replace(/\d/g, (digit) => arabicNumerals[parseInt(digit)]);
-}
-
-/**
- * Format time in Arabic (24-hour format)
+ * Format time (24-hour format)
  */
 export function formatArabicTime(date: Date = new Date()): string {
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
-  return toArabicNumerals(`${hours}:${minutes}:${seconds}`);
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 /**
@@ -105,7 +97,7 @@ export function formatArabicTime12Hour(date: Date = new Date()): string {
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
 
-  return toArabicNumerals(`${String(hours).padStart(2, '0')}:${minutes} ${ampm}`);
+  return `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
 }
 
 /**
@@ -117,10 +109,10 @@ export function formatCountdown(seconds: number): string {
   const secs = Math.floor(seconds % 60);
 
   if (hours > 0) {
-    return toArabicNumerals(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`);
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   }
 
-  return toArabicNumerals(`${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`);
+  return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
 /**
@@ -133,11 +125,11 @@ export function formatCountdownWords(seconds: number): string {
   const parts: string[] = [];
 
   if (hours > 0) {
-    parts.push(`${toArabicNumerals(hours)} ${hours === 1 ? 'ساعة' : 'ساعات'}`);
+    parts.push(`${hours} ${hours === 1 ? 'ساعة' : 'ساعات'}`);
   }
 
   if (minutes > 0) {
-    parts.push(`${toArabicNumerals(minutes)} ${minutes === 1 ? 'دقيقة' : 'دقائق'}`);
+    parts.push(`${minutes} ${minutes === 1 ? 'دقيقة' : 'دقائق'}`);
   }
 
   if (parts.length === 0) {

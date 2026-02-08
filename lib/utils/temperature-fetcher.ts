@@ -103,19 +103,11 @@ export function formatTemperature(
 }
 
 /**
- * Format temperature with Arabic numerals
+ * Format temperature
  */
 export function formatArabicTemperature(
   data: WeatherData,
   options: Partial<TemperatureDisplayOptions> = {}
 ): string {
-  const temp = formatTemperature(data, options);
-
-  if (temp === '--') {
-    return '--';
-  }
-
-  // Convert numbers to Arabic numerals
-  const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  return temp.replace(/\d/g, (digit) => arabicNumerals[parseInt(digit)]);
+  return formatTemperature(data, options);
 }
