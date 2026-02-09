@@ -48,7 +48,8 @@ export function useQuotes(
   intervalMinutes: number = 5,
   conditionalRules: ConditionalQuoteRule[] = []
 ) {
-  const [currentQuote, setCurrentQuote] = useState<Quote | null>(() => getRandomQuote('general'));
+  const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get a random quote from general category
@@ -100,7 +101,10 @@ export function useQuotes(
 
   // Initial quote and periodic updates
   useEffect(() => {
-    // Set initial random quote
+    // Mark as client-side
+    setIsClient(true);
+
+    // Set initial random quote only on client
     setCurrentQuote(getRandomQuoteFromGeneral());
 
     // Update quote periodically

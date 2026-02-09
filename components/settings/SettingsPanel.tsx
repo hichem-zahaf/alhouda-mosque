@@ -1,89 +1,85 @@
 /**
- * Settings Panel Modal - Shadcn-style design
+ * Settings Panel Modal - Built with shadcn/ui components
  */
 
 'use client';
 
-import { useState } from 'react';
-import { X } from 'lucide-react';
+import { MapPin, Palette, Castle, Volume2 } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import { LocationSettings } from './LocationSettings';
 import { ThemeSettings } from './ThemeSettings';
 import { PrayerSettings } from './PrayerSettings';
 import { SoundSettings } from './SoundSettings';
 
-type SettingsTab = 'location' | 'theme' | 'prayer' | 'sound';
-
 interface SettingsPanelProps {
-  isOpen: boolean;
-  onClose: () => void;
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
 }
 
 export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
-  const [activeTab, setActiveTab] = useState<SettingsTab>('location');
-
-  const tabs = [
-    { id: 'location' as SettingsTab, label: 'الموقع', icon: '📍' },
-    { id: 'theme' as SettingsTab, label: 'المظهر', icon: '🎨' },
-    { id: 'prayer' as SettingsTab, label: 'الصلوات', icon: '🕌' },
-    { id: 'sound' as SettingsTab, label: 'الصوت', icon: '🔊' },
-  ];
-
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-[var(--color-background)] border border-[var(--color-secondary)] rounded-lg w-full max-w-4xl max-h-[85vh] overflow-hidden flex flex-col shadow-xl">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-secondary)]">
-          <h2 className="text-xl font-semibold text-[var(--color-text)]">الإعدادات</h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-[var(--color-secondary)]/20 rounded-md transition-colors"
-            aria-label="إغلاق"
-          >
-            <X className="w-5 h-5 text-[var(--color-text)]" />
-          </button>
-        </div>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0" dir="rtl">
+        <DialogHeader className="px-8 py-5 border-b">
+          <DialogTitle className="text-xl">الإعدادات</DialogTitle>
+        </DialogHeader>
 
-        {/* Tabs */}
-        <div className="flex border-b border-[var(--color-secondary)]">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`
-                flex-1 flex items-center justify-center gap-2 py-3 px-4
-                font-medium transition-colors border-b-2 -mb-px
-                ${activeTab === tab.id
-                  ? 'text-[var(--color-primary)] border-[var(--color-primary)]'
-                  : 'text-[var(--color-secondary)] hover:text-[var(--color-text)] border-transparent hover:border-[var(--color-secondary)]'
-                }
-              `}
-            >
-              {/* <span>{tab.icon}</span> */}
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
+        <Tabs defaultValue="location" className="flex-1 overflow-hidden flex flex-col">
+          <div className="border-b px-4">
+            <TabsList className="w-full justify-start rounded-none h-auto p-0 bg-transparent border-b-0">
+              <TabsTrigger value="location" className="flex-1 rounded-none border-b-2 data-[state=active]:border-emerald-500 py-4">
+                <MapPin className="w-5 h-5 ml-2" />
+                <span className="text-base">الموقع</span>
+              </TabsTrigger>
+              <TabsTrigger value="theme" className="flex-1 rounded-none border-b-2 data-[state=active]:border-emerald-500 py-4">
+                <Palette className="w-5 h-5 ml-2" />
+                <span className="text-base">المظهر</span>
+              </TabsTrigger>
+              <TabsTrigger value="prayer" className="flex-1 rounded-none border-b-2 data-[state=active]:border-emerald-500 py-4">
+                <Castle className="w-5 h-5 ml-2" />
+                <span className="text-base">الصلوات</span>
+              </TabsTrigger>
+              <TabsTrigger value="sound" className="flex-1 rounded-none border-b-2 data-[state=active]:border-emerald-500 py-4">
+                <Volume2 className="w-5 h-5 ml-2" />
+                <span className="text-base">الصوت</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          {activeTab === 'location' && <LocationSettings />}
-          {activeTab === 'theme' && <ThemeSettings />}
-          {activeTab === 'prayer' && <PrayerSettings />}
-          {activeTab === 'sound' && <SoundSettings />}
-        </div>
+          <div className="flex-1 overflow-y-auto">
+            <TabsContent value="location" className="m-0 p-8 focus-visible:outline-none">
+              <LocationSettings />
+            </TabsContent>
+            <TabsContent value="theme" className="m-0 p-8 focus-visible:outline-none">
+              <ThemeSettings />
+            </TabsContent>
+            <TabsContent value="prayer" className="m-0 p-8 focus-visible:outline-none">
+              <PrayerSettings />
+            </TabsContent>
+            <TabsContent value="sound" className="m-0 p-8 focus-visible:outline-none">
+              <SoundSettings />
+            </TabsContent>
+          </div>
+        </Tabs>
 
-        {/* Footer */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-[var(--color-secondary)] bg-[var(--color-secondary)]/5">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-md border border-[var(--color-secondary)] text-[var(--color-text)] hover:bg-[var(--color-secondary)]/10 transition-colors"
-          >
+        <div className="flex items-center justify-end gap-3 px-8 py-5 border-t bg-muted/30">
+          <Button variant="outline" onClick={onClose} className="h-10 px-6">
             إغلاق
-          </button>
+          </Button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
