@@ -7,7 +7,7 @@
 import { Clock } from '@/components/center-display/Clock';
 import { CountdownTimer } from '@/components/center-display/CountdownTimer';
 import { QuoteDisplay } from '@/components/center-display/QuoteDisplay';
-import { PrayerTimesSimple } from '@/components/prayer-times/PrayerTimesSimple';
+import { PrayerTimes } from '@/components/prayer-times/PrayerTimes';
 
 interface DefaultModeProps {
   className?: string;
@@ -34,9 +34,9 @@ export function DefaultMode({ className = '' }: DefaultModeProps) {
         <QuoteDisplay />
       </div>
 
-      {/* Prayer times - at bottom, simple display without cards */}
-      <div className="" style={{ paddingTop: '100px !important' }}>  
-        <PrayerTimesSimple />
+      {/* Prayer times - at bottom with cards */}
+      <div className="" style={{ paddingTop: '80px !important' }}>
+        <PrayerTimes />
       </div>
     </div>
   );
