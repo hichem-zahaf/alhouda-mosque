@@ -20,7 +20,7 @@ export function ThemeSettings() {
         <p className="text-sm text-muted-foreground">تخصيص مظهر وتصميم الشاشة</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 py-4">
         {/* Mosque Name */}
         <div className="space-y-3">
           <Label htmlFor="mosque-name" className="dir-rtl text-base">اسم المسجد</Label>
@@ -35,7 +35,7 @@ export function ThemeSettings() {
         </div>
 
         {/* Theme Selection */}
-        <div className="space-y-3">
+        <div className="space-y-3 py-4">
           <Label className="text-base">اختيار الثيم</Label>
           <div className="grid grid-cols-3 gap-3">
             {themes.map((theme, index) => (
@@ -62,8 +62,8 @@ export function ThemeSettings() {
         </div>
 
         {/* Current Theme Info */}
-        <div className="p-5 border rounded-lg">
-          <p className="text-base font-medium mb-3">الثيم الحالي: {currentTheme.name}</p>
+        <div className="p-5 border rounded-lg py-4">
+          <p className="text-base font-medium mb-3 py-4">الثيم الحالي: {currentTheme.name}</p>
           <div className="grid grid-cols-5 gap-3">
             <div className="text-center">
               <div className="text-xs text-muted-foreground mb-2">الخلفية</div>

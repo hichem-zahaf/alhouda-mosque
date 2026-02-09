@@ -26,7 +26,7 @@ export function PrayerSettings() {
         <p className="text-sm text-muted-foreground">تخصيص حساب أوقات الصلاة والإقامة</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 py-4">
         {/* Calculation Method */}
         <div className="space-y-3">
           <Label htmlFor="calculation-method" className="text-base">طريقة الحساب</Label>
@@ -48,9 +48,9 @@ export function PrayerSettings() {
         </div>
 
         {/* Iqama Adjustments */}
-        <div className="space-y-4">
+        <div className="space-y-4 py-4">
           <Label className="text-base">مدة الإقامة (بالدقائق بعد الأذان)</Label>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-5 gap-4 py-4">
             {Object.entries(settings.prayer.iqamaAdjustments).map(([prayer, minutes]) => (
               <div key={prayer} className="space-y-2">
                 <Label className="text-xs text-muted-foreground text-center">
@@ -79,7 +79,7 @@ export function PrayerSettings() {
         </div>
 
         {/* Manual Times Toggle */}
-        <div className="flex items-center justify-between p-5 border rounded-lg">
+        <div className="flex items-center justify-between p-5 border rounded-lg py-4">
           <div>
             <p className="text-base font-medium">استخدام أوقات يدوية</p>
             <p className="text-sm text-muted-foreground">تعطيل الحساب التلقائي واستخدام أوقات محددة</p>

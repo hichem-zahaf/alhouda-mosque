@@ -12,13 +12,13 @@ export function LocationSettings() {
   const { settings, updateLocationSettings } = useSettingsStore();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 ">
       <div className="pb-2">
         <h3 className="text-lg font-semibold mb-2">إعدادات الموقع</h3>
         <p className="text-sm text-muted-foreground">قم بتحديد موقع المسجد لحساب أوقات الصلاة</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 py-4">
         {/* City */}
         <div className="space-y-3">
           <Label htmlFor="city" className="dir-rtl text-base">المدينة</Label>

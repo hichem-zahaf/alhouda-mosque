@@ -32,7 +32,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0" dir="rtl">
-        <DialogHeader className="px-8 py-5 border-b">
+        <DialogHeader className="px-8 py-2 border-b">
           <DialogTitle className="text-xl">الإعدادات</DialogTitle>
         </DialogHeader>
 

@@ -20,7 +20,7 @@ export function SoundSettings() {
         <p className="text-sm text-muted-foreground">تخصيص أصوات الأذان والإشعارات</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 py-4">
         {/* Sound Enabled */}
         <div className="flex items-center justify-between p-5 border rounded-lg">
           <div className="flex items-center gap-4">
@@ -41,9 +41,9 @@ export function SoundSettings() {
         </div>
 
         {/* Sound Type */}
-        <div className="space-y-3">
+        <div className="space-y-3 py-4">
           <Label className="text-base">نوع الصوت</Label>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 py-2">
             <button
               onClick={() => updateSoundSettings({ type: 'adhan' })}
               className={`
