@@ -4,14 +4,52 @@
 
 'use client';
 
-import { Volume2, VolumeX } from 'lucide-react';
+import { useState } from 'react';
+import { Volume2, VolumeX, Play, StopCircle } from 'lucide-react';
 import { useSettingsStore } from '@/store';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button';
+import { getAudioPlayer, type SoundType } from '@/lib/audio/audio-player';
 
 export function SoundSettings() {
   const { settings, updateSoundSettings } = useSettingsStore();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSound, setCurrentSound] = useState<SoundType | null>(null);
+
+  const playTestSound = async (soundType: SoundType) => {
+    try {
+      setIsPlaying(true);
+      setCurrentSound(soundType);
+
+      const player = getAudioPlayer();
+      await player.play(soundType, {
+        volume: settings.sound.volume,
+        loop: false,
+        onEnd: () => {
+          setIsPlaying(false);
+          setCurrentSound(null);
+        },
+        onError: (error) => {
+          console.error('Error playing sound:', error);
+          setIsPlaying(false);
+          setCurrentSound(null);
+        },
+      });
+    } catch (error) {
+      console.error('Error playing sound:', error);
+      setIsPlaying(false);
+      setCurrentSound(null);
+    }
+  };
+
+  const stopSound = () => {
+    const player = getAudioPlayer();
+    player.stop();
+    setIsPlaying(false);
+    setCurrentSound(null);
+  };
 
   return (
     <div className="space-y-8">
@@ -44,10 +82,10 @@ export function SoundSettings() {
         <div className="space-y-3 py-4">
           <Label className="text-base">نوع الصوت</Label>
           <div className="grid grid-cols-2 gap-4 py-2">
-            <button
+            <div
               onClick={() => updateSoundSettings({ type: 'adhan' })}
               className={`
-                p-5 rounded-lg border-2 transition-all text-center
+                p-5 rounded-lg border-2 transition-all text-center relative cursor-pointer
                 ${settings.sound.type === 'adhan'
                   ? 'border-primary bg-primary/10'
                   : 'border-border hover:border-border'
@@ -56,12 +94,40 @@ export function SoundSettings() {
             >
               <p className="text-base font-medium">الأذان الكامل</p>
               <p className="text-sm text-muted-foreground">تلاوة كاملة للأذان</p>
-            </button>
+              {settings.sound.type === 'adhan' && (
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isPlaying && currentSound === 'adhan') {
+                      stopSound();
+                    } else {
+                      playTestSound('adhan');
+                    }
+                  }}
+                  variant="ghost"
+                  size="sm"
+                  className="mt-2 gap-1"
+                  disabled={!settings.sound.enabled}
+                >
+                  {isPlaying && currentSound === 'adhan' ? (
+                    <>
+                      <StopCircle className="w-4 h-4" />
+                      إيقاف
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4" />
+                      اختبار
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
 
-            <button
+            <div
               onClick={() => updateSoundSettings({ type: 'notification' })}
               className={`
-                p-5 rounded-lg border-2 transition-all text-center
+                p-5 rounded-lg border-2 transition-all text-center relative cursor-pointer
                 ${settings.sound.type === 'notification'
                   ? 'border-primary bg-primary/10'
                   : 'border-border hover:border-border'
@@ -70,7 +136,35 @@ export function SoundSettings() {
             >
               <p className="text-base font-medium">إشعار قصير</p>
               <p className="text-sm text-muted-foreground">صوت تنبيه مختصر</p>
-            </button>
+              {settings.sound.type === 'notification' && (
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isPlaying && currentSound === 'notification') {
+                      stopSound();
+                    } else {
+                      playTestSound('notification');
+                    }
+                  }}
+                  variant="ghost"
+                  size="sm"
+                  className="mt-2 gap-1"
+                  disabled={!settings.sound.enabled}
+                >
+                  {isPlaying && currentSound === 'notification' ? (
+                    <>
+                      <StopCircle className="w-4 h-4" />
+                      إيقاف
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4" />
+                      اختبار
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
