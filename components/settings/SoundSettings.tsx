@@ -59,7 +59,7 @@ export function SoundSettings() {
                 }
               `}
             >
-              <div className="text-2xl mb-2">🔔</div>
+              {/* <div className="text-2xl mb-2">🔔</div> */}
               <p className="text-sm font-medium text-[var(--color-text)]">الأذان الكامل</p>
               <p className="text-xs text-[var(--color-secondary)]">تلاوة كاملة للأذان</p>
             </button>
@@ -74,7 +74,7 @@ export function SoundSettings() {
                 }
               `}
             >
-              <div className="text-2xl mb-2">🔕</div>
+              {/* <div className="text-2xl mb-2">🔕</div> */}
               <p className="text-sm font-medium text-[var(--color-text)]">إشعار قصير</p>
               <p className="text-xs text-[var(--color-secondary)]">صوت تنبيه مختصر</p>
             </button>

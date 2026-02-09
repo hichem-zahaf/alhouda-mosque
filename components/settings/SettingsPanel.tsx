@@ -60,7 +60,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 }
               `}
             >
-              <span>{tab.icon}</span>
+              {/* <span>{tab.icon}</span> */}
               <span>{tab.label}</span>
             </button>
           ))}
