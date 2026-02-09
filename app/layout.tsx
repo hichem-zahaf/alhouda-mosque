@@ -51,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${cairo.variable} ${amiri.variable} ${tajawal.variable} ${ibmPlexSansArabic.variable} font-arabic antialiased bg-dark-222`}>
+      <body className={`${cairo.variable} ${amiri.variable} ${tajawal.variable} ${ibmPlexSansArabic.variable} font-cairo antialiased bg-dark-222`}>
         <FontProvider>{children}</FontProvider>
       </body>
     </html>

@@ -7,18 +7,12 @@
 import { useEffect } from 'react';
 import { useSettingsStore } from '@/store';
 
-const fontVariables: Record<string, string> = {
-  'cairo': 'var(--font-cairo)',
-  'amiri': 'var(--font-amiri)',
-  'tajawal': 'var(--font-tajawal)',
-  'ibm-plex': 'var(--font-ibm-plex)',
-};
-
-const fontFallbacks: Record<string, string> = {
-  'cairo': '"Noto Sans Arabic", "Arabic UI", sans-serif',
-  'amiri': '"Traditional Arabic", "Arabic Typesetting", serif',
-  'tajawal': '"Noto Sans Arabic", "Arabic UI", sans-serif',
-  'ibm-plex': '"Noto Sans Arabic", "Arabic UI", sans-serif',
+// Direct font family names (not CSS variables)
+const fontFamilies: Record<string, string> = {
+  'cairo': '"Cairo", "Noto Sans Arabic", sans-serif',
+  'amiri': '"Amiri", "Traditional Arabic", serif',
+  'tajawal': '"Tajawal", "Noto Sans Arabic", sans-serif',
+  'ibm-plex': '"IBM Plex Sans Arabic", "Noto Sans Arabic", sans-serif',
 };
 
 export function FontProvider({ children }: { children: React.ReactNode }) {
@@ -26,16 +20,19 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
   const selectedFont = settings.theme.font;
 
   useEffect(() => {
-    const fontVar = fontVariables[selectedFont] || fontVariables['cairo'];
-    const fallback = fontFallbacks[selectedFont] || fontFallbacks['cairo'];
-    const fontStack = `${fontVar}, ${fallback}`;
+    const fontFamily = fontFamilies[selectedFont] || fontFamilies['cairo'];
 
-    // Apply to document root
-    document.documentElement.style.setProperty('--selected-font', fontStack);
+    // Apply to all elements
+    document.body.style.fontFamily = fontFamily;
+    document.documentElement.style.fontFamily = fontFamily;
 
-    // Also apply to body for immediate effect
-    document.body.style.setProperty('--selected-font', fontStack);
-    document.body.style.fontFamily = fontStack;
+    // Force update on all elements with a data attribute
+    const root = document.documentElement;
+    root.setAttribute('data-font', selectedFont);
+
+    // Add class to body for additional styling
+    document.body.classList.remove('font-cairo', 'font-amiri', 'font-tajawal', 'font-ibm-plex');
+    document.body.classList.add(`font-${selectedFont}`);
   }, [selectedFont]);
 
   return <>{children}</>;
