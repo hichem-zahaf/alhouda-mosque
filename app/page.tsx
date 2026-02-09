@@ -88,7 +88,7 @@ export default function HomePage() {
   };
 
   return (
-    <RTLWrapper className="min-h-screen islamic-pattern" onClick={handleScreenClick}>
+    <RTLWrapper className="min-h-screen islamic-pattern no-padding" onClick={handleScreenClick}>
       <div className="flex flex-col min-h-screen">
         <Header onSettingsToggle={() => setIsSettingsOpen(true)} />
         <main className="flex-1 p-6">
