@@ -43,6 +43,16 @@ const defaultConditionalRules: ConditionalQuoteRule[] = [
   },
 ];
 
+/**
+ * Calculate rotation duration based on quote length
+ * Short quotes (< 50 chars): 3 seconds
+ * Long quotes (>= 50 chars): 5 seconds
+ */
+function calculateQuoteDuration(quote: Quote): number {
+  const textLength = quote.text.length;
+  return textLength < 50 ? 3000 : 5000; // 3 or 5 seconds in milliseconds
+}
+
 export function useQuotes(
   category: QuoteCategory = 'general',
   intervalMinutes: number = 5,
@@ -51,6 +61,7 @@ export function useQuotes(
   const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
   const [isClient, setIsClient] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const currentDurationRef = useRef<number>(3000); // Current rotation duration
 
   // Get a random quote from general category
   const getRandomQuoteFromGeneral = useCallback((): Quote => {
@@ -105,35 +116,54 @@ export function useQuotes(
     setIsClient(true);
 
     // Set initial random quote only on client
-    setCurrentQuote(getRandomQuoteFromGeneral());
+    const initialQuote = getRandomQuoteFromGeneral();
+    setCurrentQuote(initialQuote);
+    currentDurationRef.current = calculateQuoteDuration(initialQuote);
 
-    // Update quote periodically
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    // Update quote periodically with dynamic duration based on quote length
+    const scheduleNextQuote = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
 
-    intervalRef.current = setInterval(() => {
-      updateQuote();
-    }, intervalMinutes * 60 * 1000);
+      const newQuote = getRandomQuoteFromGeneral();
+      setCurrentQuote(newQuote);
+      const duration = calculateQuoteDuration(newQuote);
+      currentDurationRef.current = duration;
+
+      intervalRef.current = setInterval(scheduleNextQuote, duration);
+    };
+
+    // Start the rotation
+    intervalRef.current = setInterval(scheduleNextQuote, currentDurationRef.current);
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [intervalMinutes, updateQuote, getRandomQuoteFromGeneral]);
+  }, [getRandomQuoteFromGeneral]);
 
   // Also update quote when context changes (like day changes)
   useEffect(() => {
     const handleContextChange = () => {
       updateQuote();
+      // Update duration based on new quote
+      if (currentQuote) {
+        const newDuration = calculateQuoteDuration(currentQuote);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+        currentDurationRef.current = newDuration;
+        intervalRef.current = setInterval(handleContextChange, newDuration);
+      }
     };
 
     // Check every minute for context changes
     const contextInterval = setInterval(handleContextChange, 60000);
 
     return () => clearInterval(contextInterval);
-  }, [updateQuote]);
+  }, [updateQuote, currentQuote]);
 
   // Manually advance to next quote
   const nextQuote = () => {

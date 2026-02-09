@@ -36,6 +36,7 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
         textShadow: '0 0 30px var(--color-primary)',
         fontSize: '16rem',
       }}
+      suppressHydrationWarning
     >
       {formatTime()}
     </div>

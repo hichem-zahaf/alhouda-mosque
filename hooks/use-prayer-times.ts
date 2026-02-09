@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePrayerStore, useSettingsStore } from '@/store';
-import { fetchPrayerTimes, parsePrayerTimes, prayerTimeToDate } from '@/lib/prayer-times/aladhan-api';
+import { fetchPrayerTimes, parsePrayerTimes, prayerTimeToDate, formatDateForAPI } from '@/lib/prayer-times/aladhan-api';
 import { getNextPrayer } from '@/lib/utils/countdown-timer';
 
 export function usePrayerTimes() {
@@ -23,10 +23,16 @@ export function usePrayerTimes() {
     setTimeUntilNext,
     setTimeUntilIqama,
     isManualMode,
+    cachedPrayerData,
+    setCachedPrayerData,
+    isCachedDataValid,
   } = usePrayerStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Get today's date in YYYY-MM-DD format
+  const getTodayDate = () => formatDateForAPI(new Date());
 
   // Fetch prayer times on mount and when settings change
   useEffect(() => {
@@ -37,6 +43,18 @@ export function usePrayerTimes() {
     }
 
     const fetchTimes = async () => {
+      const todayDate = getTodayDate();
+      const currentMethod = settings.prayer.calculationMethod;
+
+      // Check if we have valid cached data
+      if (isCachedDataValid(todayDate, currentMethod) && cachedPrayerData) {
+        // Load from cache
+        setTodayPrayers(cachedPrayerData.prayers);
+        setIsLoading(false);
+        return;
+      }
+
+      // Fetch from API
       setIsLoading(true);
       setError(null);
 
@@ -44,11 +62,18 @@ export function usePrayerTimes() {
         const response = await fetchPrayerTimes({
           latitude: settings.location.coordinates.lat,
           longitude: settings.location.coordinates.lng,
-          method: settings.prayer.calculationMethod,
+          method: currentMethod,
         });
 
         const prayers = parsePrayerTimes(response, settings.prayer.iqamaAdjustments);
         setTodayPrayers(prayers);
+
+        // Save to cache
+        setCachedPrayerData({
+          date: todayDate,
+          calculationMethod: currentMethod,
+          prayers,
+        });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch prayer times');
         console.error('Error fetching prayer times:', err);
@@ -65,6 +90,9 @@ export function usePrayerTimes() {
     settings.prayer.iqamaAdjustments,
     settings.prayer.useManualTimes,
     setTodayPrayers,
+    cachedPrayerData,
+    isCachedDataValid,
+    setCachedPrayerData,
   ]);
 
   // Update next prayer and countdowns

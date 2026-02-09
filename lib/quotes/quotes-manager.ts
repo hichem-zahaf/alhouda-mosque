@@ -2,6 +2,8 @@
  * Quotes manager - handles Islamic quotes and message selection
  */
 
+import quotesData from '@/data/quotes.json';
+
 export interface Quote {
   id: string;
   text: string;
@@ -26,7 +28,7 @@ export interface QuotesCollection {
 }
 
 /**
- * Default quotes collection
+ * Default quotes collection (fallback if JSON loading fails)
  */
 const DEFAULT_QUOTES: QuotesCollection = {
   general: [
@@ -96,10 +98,35 @@ const DEFAULT_QUOTES: QuotesCollection = {
 };
 
 /**
+ * Load quotes from imported JSON data
+ */
+function loadQuotesFromData(): QuotesCollection {
+  try {
+    const data = quotesData as unknown as QuotesCollection;
+
+    // Validate and merge with defaults
+    return {
+      general: Array.isArray(data.general) && data.general.length > 0 ? data.general : DEFAULT_QUOTES.general,
+      'pre-prayer': Array.isArray(data['pre-prayer']) && data['pre-prayer'].length > 0 ? data['pre-prayer'] : DEFAULT_QUOTES['pre-prayer'],
+      'post-prayer': Array.isArray(data['post-prayer']) && data['post-prayer'].length > 0 ? data['post-prayer'] : DEFAULT_QUOTES['post-prayer'],
+      friday: Array.isArray(data.friday) && data.friday.length > 0 ? data.friday : DEFAULT_QUOTES.friday,
+      ramadan: Array.isArray(data.ramadan) && data.ramadan.length > 0 ? data.ramadan : DEFAULT_QUOTES.ramadan,
+    };
+  } catch {
+    return DEFAULT_QUOTES;
+  }
+}
+
+/**
+ * Active quotes collection (loaded from JSON)
+ */
+const QUOTES: QuotesCollection = loadQuotesFromData();
+
+/**
  * Get quotes from a category
  */
 export function getQuotes(category: QuoteCategory): Quote[] {
-  return DEFAULT_QUOTES[category] || [];
+  return QUOTES[category] || [];
 }
 
 /**
@@ -117,8 +144,8 @@ export function getRandomQuote(category: QuoteCategory): Quote | null {
  * Get a quote by ID
  */
 export function getQuoteById(id: string): Quote | null {
-  for (const category of Object.keys(DEFAULT_QUOTES) as QuoteCategory[]) {
-    const quote = DEFAULT_QUOTES[category].find((q) => q.id === id);
+  for (const category of Object.keys(QUOTES) as QuoteCategory[]) {
+    const quote = QUOTES[category].find((q) => q.id === id);
     if (quote) return quote;
   }
   return null;

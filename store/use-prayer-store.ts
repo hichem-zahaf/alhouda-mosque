@@ -19,6 +19,12 @@ export interface PrayerInfo {
   iqamaTime: Date;
 }
 
+interface CachedPrayerData {
+  date: string; // YYYY-MM-DD
+  calculationMethod: number;
+  prayers: PrayerTime[];
+}
+
 interface PrayerState {
   todayPrayers: PrayerTime[];
   nextPrayer: PrayerInfo | null;
@@ -27,6 +33,7 @@ interface PrayerState {
   timeUntilIqama: number; // in seconds
   isManualMode: boolean;
   lastUpdated: number | null;
+  cachedPrayerData: CachedPrayerData | null; // Cache with date and method
   isLoading: boolean;
   error: string | null;
 
@@ -37,6 +44,8 @@ interface PrayerState {
   setTimeUntilIqama: (seconds: number) => void;
   setManualMode: (isManual: boolean) => void;
   updatePrayerTime: (name: PrayerName, time: string, iqamaTime: string) => void;
+  setCachedPrayerData: (data: CachedPrayerData | null) => void;
+  isCachedDataValid: (date: string, method: number) => boolean;
   reset: () => void;
 }
 
@@ -85,7 +94,7 @@ const defaultPrayerTimes: PrayerTime[] = [
 
 export const usePrayerStore = create<PrayerState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       todayPrayers: defaultPrayerTimes,
       nextPrayer: null,
       currentPrayer: null,
@@ -93,6 +102,7 @@ export const usePrayerStore = create<PrayerState>()(
       timeUntilIqama: 0,
       isManualMode: false,
       lastUpdated: null,
+      cachedPrayerData: null,
       isLoading: false,
       error: null,
 
@@ -115,6 +125,13 @@ export const usePrayerStore = create<PrayerState>()(
           ),
         })),
 
+      setCachedPrayerData: (data) => set({ cachedPrayerData: data }),
+
+      isCachedDataValid: (date, method) => {
+        const cached = get().cachedPrayerData;
+        return cached !== null && cached.date === date && cached.calculationMethod === method;
+      },
+
       reset: () =>
         set({
           todayPrayers: defaultPrayerTimes,
@@ -124,6 +141,7 @@ export const usePrayerStore = create<PrayerState>()(
           timeUntilIqama: 0,
           isManualMode: false,
           lastUpdated: null,
+          cachedPrayerData: null,
           error: null,
         }),
     }),
@@ -133,6 +151,7 @@ export const usePrayerStore = create<PrayerState>()(
         todayPrayers: state.todayPrayers,
         isManualMode: state.isManualMode,
         lastUpdated: state.lastUpdated,
+        cachedPrayerData: state.cachedPrayerData,
       }),
     }
   )

@@ -16,6 +16,30 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 
+// All Aladhan calculation methods
+const CALCULATION_METHODS = [
+  { value: '0', label: 'Jafari / Shia Ithna-Ashari', arabic: 'جعفري / الشيعة الاثنا عشرية' },
+  { value: '1', label: 'University of Islamic Sciences, Karachi', arabic: 'جامعة العلوم الإسلامية، كراتشي' },
+  { value: '2', label: 'Islamic Society of North America (ISNA)', arabic: 'الجمعية الإسلامية لأمريكا الشمالية' },
+  { value: '3', label: 'Muslim World League (MWL)', arabic: 'الرابطة الإسلامية العالمية' },
+  { value: '4', label: 'Umm Al-Qura University, Makkah', arabic: 'جامعة أم القرى، مكة المكرمة' },
+  { value: '5', label: 'Egyptian General Authority of Survey', arabic: 'الهيئة المصرية العامة للمساحة' },
+  { value: '7', label: 'Institute of Geophysics, University of Tehran', arabic: 'معهد الجيوفيزياء، جامعة طهران' },
+  { value: '8', label: 'Gulf Region', arabic: 'منطقة الخليج' },
+  { value: '9', label: 'Kuwait', arabic: 'الكويت' },
+  { value: '10', label: 'Qatar', arabic: 'قطر' },
+  { value: '11', label: 'Majlis Ugama Islam Singapura, Singapore', arabic: 'مجلس الشؤون الإسلامية، سنغافورة' },
+  { value: '12', label: 'Union Organization islamic de France', arabic: 'المنظمة الإسلامية في فرنسا' },
+  { value: '13', label: 'Diyanet İşleri Başkanlığı, Turkey', arabic: 'رئاسة الشؤون الدينية، تركيا' },
+  { value: '14', label: 'Spiritual Administration of Muslims of Russia', arabic: 'الإدارة الروحية لمسلمي روسيا' },
+  { value: '15', label: 'Moonsighting Committee Worldwide', arabic: 'لجنة رؤية الهلال العالمية' },
+  { value: '16', label: 'Dubai (experimental)', arabic: 'دبي (تجريبي)' },
+  { value: '17', label: 'Jabatan Kemajuan Islam Malaysia (JAKIM)', arabic: 'إدارة التطوير الإسلامي الماليزي' },
+  { value: '18', label: 'Tunisia', arabic: 'تونس' },
+  { value: '19', label: 'Algeria', arabic: 'الجزائر' },
+  { value: '20', label: 'KEMENAG - Indonesia', arabic: 'وزارة الشؤون الدينية، إندونيسيا' },
+] as const;
+
 export function PrayerSettings() {
   const { settings, updatePrayerSettings } = useSettingsStore();
 
@@ -37,12 +61,12 @@ export function PrayerSettings() {
             <SelectTrigger id="calculation-method" className="h-11">
               <SelectValue placeholder="اختر طريقة الحساب" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="1">الرابطة الإسلامية العالمية (MWL)</SelectItem>
-              <SelectItem value="2">الجمعية الإسلامية لأمريكا الشمالية (ISNA)</SelectItem>
-              <SelectItem value="3">الهيئة المصرية العامة للمساحة</SelectItem>
-              <SelectItem value="4">جامعة أم القرى (مكة المكرمة)</SelectItem>
-              <SelectItem value="5">جامعة علوم إسلامية (كراتشي)</SelectItem>
+            <SelectContent className="max-h-80 overflow-y-auto">
+              {CALCULATION_METHODS.map((method) => (
+                <SelectItem key={method.value} value={method.value}>
+                  {method.arabic}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
