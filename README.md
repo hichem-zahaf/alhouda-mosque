@@ -19,7 +19,7 @@
 ## Banner
 
 <p align="center">
-  <img src="D:\Workspace\alhouda-mosque\public\banner.png" alt="Al-Houda Mosque Display" width="100%"/>
+  <img src="\public\banner.png" alt="Al-Houda Mosque Display" width="100%"/>
 </p>
 
 A modern, feature-rich mosque display system built with Next.js 16 (App Router), React 19, and Tailwind CSS v4. The system displays prayer times, quotes, Hijri dates, and provides a beautiful interface for mosque attendees.
