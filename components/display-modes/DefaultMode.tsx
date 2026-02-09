@@ -19,7 +19,7 @@ export function DefaultMode({ className = '' }: DefaultModeProps) {
       {/* Main content area - clock centered, countdown positioned to the left */}
       <div className="flex-1 flex items-center justify-center relative">
         {/* Clock stays centered */}
-        <div className="z-10" style={{ paddingTop: '50px' }}>
+        <div className="z-10" style={{ paddingTop: '50px !important' }}>
           <Clock />
         </div>
 
@@ -35,7 +35,7 @@ export function DefaultMode({ className = '' }: DefaultModeProps) {
       </div>
 
       {/* Prayer times - at bottom, simple display without cards */}
-      <div className="py-6" style={{ paddingTop: '50px' }}>  
+      <div className="" style={{ paddingTop: '100px !important' }}>  
         <PrayerTimesSimple />
       </div>
     </div>
