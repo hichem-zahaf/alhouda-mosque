@@ -61,11 +61,11 @@ export const themes: Theme[] = [
     name: 'فاتح 4',
     type: 'light',
     colors: {
-      background: '#FAF5EF',
-      text: '#3E3E3E',
-      primary: '#D35400',
+      background: '#BFC9D1',
+      text: '#FFFDF1',
+      primary: '#FFFDF1',
       secondary: '#7F8C8D',
-      accent: '#E67E22',
+      accent: '#ECECEC',
     },
   },
   // Dark themes (2)
