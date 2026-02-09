@@ -52,11 +52,11 @@ export function QuoteDisplay({ className = '', category = 'general' }: QuoteDisp
         <p className="text-2xl font-semibold text-current text-center leading-relaxed font-quran">
           {currentQuote.text}
         </p>
-        {currentQuote.source && (
+        {/* {currentQuote.source && (
           <p className="text-lg text-secondary text-center mt-2 font-amiri">
             {currentQuote.source}
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );
