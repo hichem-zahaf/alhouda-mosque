@@ -18,12 +18,6 @@
   --font-cairo: var(--font-cairo);
 }
 
-div {
-    padding: 7px;
-}
-.no-padding {
-  padding : 0px !important
-}
 
 * {
   box-sizing: border-box;
