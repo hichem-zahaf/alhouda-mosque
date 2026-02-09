@@ -1,12 +1,22 @@
 {
-  "name": "alhouda",
-  "version": "0.1.0",
+  "name": "alhouda-mosque",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "start:prod": "NODE_ENV=production next start",
+    "lint": "eslint",
+    "docker:build": "docker build -t alhouda-mosque:latest .",
+    "docker:dev": "docker-compose --profile dev up",
+    "docker:prod": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:clean": "docker system prune -f",
+    "deploy": "./deploy.sh deploy",
+    "deploy:compose": "./deploy.sh compose",
+    "deploy:health": "./deploy.sh health"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

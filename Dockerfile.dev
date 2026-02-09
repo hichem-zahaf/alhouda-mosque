@@ -1,0 +1,29 @@
+# Al-Houda Mosque - Development Dockerfile
+# For development with hot reload
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies for native modules
+RUN apk add --no-cache libc6-compat
+
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
+
+# Install pnpm and dependencies
+RUN npm install -g pnpm@latest
+RUN pnpm install
+
+# Copy application files
+COPY . .
+
+# Set development environment
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Expose development port
+EXPOSE 3000
+
+# Start development server with hot reload
+CMD ["pnpm", "dev"]

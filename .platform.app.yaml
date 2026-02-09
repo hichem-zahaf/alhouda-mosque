@@ -1,0 +1,51 @@
+# Platform.sh Configuration
+# For deploying to Platform.sh
+
+name: "Al-Houda Mosque"
+
+type: "nodejs:20"
+
+dependencies:
+    nodejs:
+        pnpm: "*"
+
+variables:
+    env:
+        NEXT_TELEMETRY_DISABLED: 1
+        NODE_ENV: production
+
+hooks:
+    build: |
+        set -e
+        pnpm install
+        pnpm build
+        mkdir -p public
+        cp -R .next/static public/
+        cp -R public/* public/
+
+web:
+    commands:
+        start: "node server.js"
+
+    locations:
+        "/":
+            root: "public"
+            passthru: true
+            expires: 1h
+
+        "/_next/static":
+            root: "public/_next/static"
+            expires: 365d
+
+        "/images":
+            root: "public/images"
+            expires: 30d
+
+        "/audio":
+            root: "public/audio"
+            expires: 30d
+
+disk:
+    main: 1024
+
+size: S

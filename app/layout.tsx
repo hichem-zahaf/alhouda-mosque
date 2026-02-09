@@ -41,7 +41,7 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "مسجد الحودة - Al-Houda Mosque",
+  title: "مسجد الهدى - Al-Houda Mosque",
   description: "شاشة عرض المسجد - Prayer times and information display",
 };
 
