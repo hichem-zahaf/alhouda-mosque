@@ -36,13 +36,12 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
     return (
       <div
         className={`
-          text-8xl font-bold text-primary
+          text-6xl md:text-[16rem] font-bold text-primary
           tracking-wider
           ${className}
         `}
         style={{
           textShadow: '0 0 30px var(--color-primary)',
-          fontSize: '16rem',
         }}
         aria-hidden="true"
       >
@@ -54,13 +53,12 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
   return (
     <div
       className={`
-        text-8xl font-bold text-primary
+        text-6xl md:text-[16rem] font-bold text-primary
         tracking-wider
         ${className}
       `}
       style={{
         textShadow: '0 0 30px var(--color-primary)',
-        fontSize: '16rem',
       }}
     >
       {formatTime()}

@@ -20,16 +20,16 @@ export function QuoteDisplay({ className = '', category = 'general' }: QuoteDisp
     return (
       <div
         className={`
-          flex items-center gap-4
-          px-8 py-4 rounded-xl
+          flex items-center gap-3 md:gap-4
+          px-4 md:px-8 py-3 md:py-4 rounded-xl
           bg-secondary/10
           ${className}
         `}
         aria-hidden="true"
       >
-        <Quote className="w-8 h-8 text-primary flex-shrink-0" />
+        <Quote className="w-6 h-6 md:w-8 md:h-8 text-primary flex-shrink-0" />
         <div className="flex-1">
-          <p className="text-2xl font-semibold text-current text-center leading-relaxed">
+          <p className="text-lg md:text-2xl font-semibold text-current text-center leading-relaxed">
             &nbsp;
           </p>
         </div>
@@ -40,16 +40,16 @@ export function QuoteDisplay({ className = '', category = 'general' }: QuoteDisp
   return (
     <div
       className={`
-        flex items-center gap-4
-        px-8 py-4 rounded-xl
+        flex items-center gap-3 md:gap-4
+        px-4 md:px-8 py-3 md:py-4 rounded-xl
         bg-secondary/10
         font-arabic
         ${className}
       `}
     >
-      <Quote className="w-8 h-8 text-primary flex-shrink-0" />
+      <Quote className="w-6 h-6 md:w-8 md:h-8 text-primary flex-shrink-0" />
       <div className="flex-1">
-        <p className="text-2xl font-semibold text-current text-center leading-relaxed font-quran">
+        <p className="text-lg md:text-2xl font-semibold text-current text-center leading-relaxed font-quran">
           {currentQuote.text}
         </p>
         {/* {currentQuote.source && (

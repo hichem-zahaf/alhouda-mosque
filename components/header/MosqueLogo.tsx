@@ -17,7 +17,7 @@ export function MosqueLogo({ className = '' }: MosqueLogoProps) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div>
-        <h1 className="text-2xl font-bold text-primary">
+        <h1 className="text-xl md:text-2xl font-bold text-primary">
           {settings.mosque.name}
         </h1>
       </div>

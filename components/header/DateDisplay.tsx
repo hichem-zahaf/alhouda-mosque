@@ -19,18 +19,18 @@ export function DateDisplay({ className = '' }: DateDisplayProps) {
 
   return (
     <div className={`text-center ${className}`}>
-      {/* Date in one line */}
-      <div className="text-xl font-semibold flex items-center justify-center gap-4">
+      {/* Date in one line on desktop, stacked on mobile */}
+      <div className="text-base md:text-xl font-semibold flex flex-col md:flex-row items-center justify-center gap-1 md:gap-4">
         <span>{gregorianDate.fullDate}</span>
-        <span>-</span>
+        <span className="hidden md:inline">-</span>
         <span>{hijriDate.formattedArabic}</span>
       </div>
 
       {/* Special day and greeting - if present */}
       {(hijriDate.specialDay || hijriDate.greeting) && (
-        <div className="text-sm mt-2">
+        <div className="text-xs md:text-sm mt-1 md:mt-2">
           {hijriDate.specialDay && (
-            <span className="mr-3">{hijriDate.specialDay}</span>
+            <span className="ml-0 md:mr-3 block md:inline">{hijriDate.specialDay}</span>
           )}
           {hijriDate.greeting && (
             <span>{hijriDate.greeting}</span>

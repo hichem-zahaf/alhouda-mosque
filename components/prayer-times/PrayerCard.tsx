@@ -53,7 +53,7 @@ export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
       onClick={toggleTheme}
       className={`
         relative overflow-hidden
-        rounded-xl p-6
+        rounded-xl p-3 md:p-6
         transition-all duration-300
         cursor-pointer
         hover:scale-105 hover:shadow-xl
@@ -78,14 +78,63 @@ export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
     >
       {prayer.isNext && (
         <div
-          className="absolute top-0 right-0 text-black text-xs font-bold px-3 py-1 rounded-bl-lg"
+          className="absolute top-0 right-0 text-black text-xs font-bold px-2 py-1 md:px-3 md:py-1 rounded-bl-lg"
           style={{ backgroundColor: currentTheme.colors.primary }}
         >
           القادم
         </div>
       )}
 
-      <div className="text-center">
+      {/* Mobile: Horizontal layout */}
+      <div className="flex items-center justify-between gap-3 md:hidden">
+        <h3
+          className="text-lg font-bold"
+          style={{ color: currentTheme.colors.primary }}
+        >
+          {prayer.nameArabic}
+        </h3>
+
+        <div className="flex items-center gap-4">
+          <div className="text-center">
+            <p className="text-xs mb-1" style={{ color: currentTheme.colors.secondary }}>
+              الأذان
+            </p>
+            <p
+              className="text-2xl font-black drop-shadow-lg"
+              style={{ color: currentTheme.colors.text }}
+            >
+              {prayer.time}
+            </p>
+          </div>
+
+          <div
+            className="border-r pr-4"
+            style={{ borderColor: `${currentTheme.colors.primary}33` }}
+          >
+            <p className="text-xs mb-1" style={{ color: currentTheme.colors.secondary }}>
+              الإقامة
+            </p>
+            <p
+              className="text-xl font-bold"
+              style={{ color: currentTheme.colors.accent }}
+            >
+              {getIqamaMinutes()}
+            </p>
+          </div>
+        </div>
+
+        {!prayer.isCurrent && !isPast && (
+          <div
+            className="text-xs whitespace-nowrap"
+            style={{ color: `${currentTheme.colors.primary}CC` }}
+          >
+            الباقي: {countdown.formatted}
+          </div>
+        )}
+      </div>
+
+      {/* Desktop: Vertical centered layout */}
+      <div className="text-center hidden md:block">
         <h3
           className="text-2xl font-bold mb-4"
           style={{ color: currentTheme.colors.primary }}

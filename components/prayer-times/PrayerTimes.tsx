@@ -41,7 +41,7 @@ export function PrayerTimes({ className = '' }: PrayerTimesProps) {
   return (
     <div
       className={`
-        grid grid-cols-5 gap-4
+        grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4
         ${className}
       `}
     >

@@ -487,7 +487,6 @@ For issues, questions, or suggestions:
 
 ---
 
-
 <div align="center">
 
 **Al-Houda Mosque Display System**

@@ -24,19 +24,19 @@ export function CountdownTimer({ className = '' }: CountdownTimerProps) {
   const iqamaCountdown = formatCountdown(Math.max(0, timeUntilIqama));
 
   return (
-    <div className={`text-right ${className}`}>
+    <div className={`text-center md:text-right ${className}`}>
       {/* Next prayer name */}
-      <div className="text-xl font-semibold mb-2 text-current">
+      <div className="text-lg md:text-xl font-semibold mb-1 md:mb-2 text-current">
         {prayerName}
       </div>
 
       {/* Countdown time */}
-      <div className="text-6xl font-bold mb-2 text-primary">
+      <div className="text-4xl md:text-6xl font-bold mb-1 md:mb-2 text-primary">
         {countdown}
       </div>
 
       {/* Iqama countdown */}
-      <div className="text-lg text-secondary">
+      <div className="text-sm md:text-lg text-secondary">
         الإقامة: {iqamaCountdown}
       </div>
     </div>
