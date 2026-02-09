@@ -1,5 +1,5 @@
 /**
- * Date Display component - Shows Gregorian and Hijri dates
+ * Date Display component - Shows Gregorian and Hijri dates in one line
  */
 
 'use client';
@@ -19,20 +19,22 @@ export function DateDisplay({ className = '' }: DateDisplayProps) {
 
   return (
     <div className={`text-center ${className}`}>
-      <div className="text-lg font-semibold text-primary">
-        {gregorianDate.fullDate}
+      {/* Date in one line */}
+      <div className="text-xl font-semibold flex items-center justify-center gap-4">
+        <span>{gregorianDate.fullDate}</span>
+        <span>-</span>
+        <span>{hijriDate.formattedArabic}</span>
       </div>
-      <div className="text-sm text-accent-d4 mt-1">
-        {hijriDate.formattedArabic}
-      </div>
-      {hijriDate.specialDay && (
-        <div className="text-sm text-accent-d4 mt-1 animate-pulse-glow">
-          {hijriDate.specialDay}
-        </div>
-      )}
-      {hijriDate.greeting && (
-        <div className="text-sm text-primary mt-1">
-          {hijriDate.greeting}
+
+      {/* Special day and greeting - if present */}
+      {(hijriDate.specialDay || hijriDate.greeting) && (
+        <div className="text-sm mt-2">
+          {hijriDate.specialDay && (
+            <span className="mr-3">{hijriDate.specialDay}</span>
+          )}
+          {hijriDate.greeting && (
+            <span>{hijriDate.greeting}</span>
+          )}
         </div>
       )}
     </div>

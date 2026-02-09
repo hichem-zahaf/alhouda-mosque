@@ -1,5 +1,5 @@
 /**
- * Location Settings component
+ * Location Settings component - Shadcn-style
  */
 
 'use client';
@@ -11,73 +11,70 @@ export function LocationSettings() {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-2xl font-bold text-primary mb-6">إعدادات الموقع</h3>
+      <div>
+        <h3 className="text-lg font-semibold text-[var(--color-text)] mb-1">إعدادات الموقع</h3>
+        <p className="text-sm text-[var(--color-secondary)]">قم بتحديد موقع المسجد لحساب أوقات الصلاة</p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-4">
         {/* City */}
-        <div>
-          <label className="block text-lg font-medium text-accent-d4 mb-2">
-            المدينة
-          </label>
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-[var(--color-text)]">المدينة</label>
           <input
             type="text"
             value={settings.location.city}
             onChange={(e) => updateLocationSettings({ city: e.target.value })}
-            className="w-full px-4 py-3 bg-dark-222 border-2 border-primary/30 rounded-lg text-light-f1 focus:border-primary focus:outline-none"
+            className="w-full px-3 py-2 bg-[var(--color-background)] border border-[var(--color-secondary)] rounded-md text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
             dir="rtl"
           />
         </div>
 
         {/* Country */}
-        <div>
-          <label className="block text-lg font-medium text-accent-d4 mb-2">
-            الدولة
-          </label>
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-[var(--color-text)]">الدولة</label>
           <input
             type="text"
             value={settings.location.country}
             onChange={(e) => updateLocationSettings({ country: e.target.value })}
-            className="w-full px-4 py-3 bg-dark-222 border-2 border-primary/30 rounded-lg text-light-f1 focus:border-primary focus:outline-none"
+            className="w-full px-3 py-2 bg-[var(--color-background)] border border-[var(--color-secondary)] rounded-md text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
             dir="rtl"
           />
         </div>
 
-        {/* Latitude */}
-        <div>
-          <label className="block text-lg font-medium text-accent-d4 mb-2">
-            خط العرض
-          </label>
-          <input
-            type="number"
-            step="0.0001"
-            value={settings.location.coordinates.lat}
-            onChange={(e) => updateLocationSettings({
-              coordinates: { ...settings.location.coordinates, lat: parseFloat(e.target.value) }
-            })}
-            className="w-full px-4 py-3 bg-dark-222 border-2 border-primary/30 rounded-lg text-light-f1 focus:border-primary focus:outline-none"
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {/* Latitude */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[var(--color-text)]">خط العرض</label>
+            <input
+              type="number"
+              step="0.0001"
+              value={settings.location.coordinates.lat}
+              onChange={(e) => updateLocationSettings({
+                coordinates: { ...settings.location.coordinates, lat: parseFloat(e.target.value) }
+              })}
+              className="w-full px-3 py-2 bg-[var(--color-background)] border border-[var(--color-secondary)] rounded-md text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
+            />
+          </div>
 
-        {/* Longitude */}
-        <div>
-          <label className="block text-lg font-medium text-accent-d4 mb-2">
-            خط الطول
-          </label>
-          <input
-            type="number"
-            step="0.0001"
-            value={settings.location.coordinates.lng}
-            onChange={(e) => updateLocationSettings({
-              coordinates: { ...settings.location.coordinates, lng: parseFloat(e.target.value) }
-            })}
-            className="w-full px-4 py-3 bg-dark-222 border-2 border-primary/30 rounded-lg text-light-f1 focus:border-primary focus:outline-none"
-          />
+          {/* Longitude */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[var(--color-text)]">خط الطول</label>
+            <input
+              type="number"
+              step="0.0001"
+              value={settings.location.coordinates.lng}
+              onChange={(e) => updateLocationSettings({
+                coordinates: { ...settings.location.coordinates, lng: parseFloat(e.target.value) }
+              })}
+              className="w-full px-3 py-2 bg-[var(--color-background)] border border-[var(--color-secondary)] rounded-md text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
+            />
+          </div>
         </div>
       </div>
 
       {/* Info */}
-      <div className="bg-primary/10 border-2 border-primary/30 rounded-lg p-4 mt-6">
-        <p className="text-accent-d4">
+      <div className="bg-[var(--color-secondary)]/10 border border-[var(--color-secondary)] rounded-md p-4">
+        <p className="text-sm text-[var(--color-secondary)]">
           💡 يتم استخدام هذه الإحداثيات لحساب أوقات الصلاة بدقة
         </p>
       </div>

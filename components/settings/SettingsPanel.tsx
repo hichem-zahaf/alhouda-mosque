@@ -1,12 +1,11 @@
 /**
- * Settings Panel Modal
+ * Settings Panel Modal - Shadcn-style design
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { X, Save, RotateCcw } from 'lucide-react';
-import { useSettingsStore } from '@/store';
+import { useState } from 'react';
+import { X } from 'lucide-react';
 import { LocationSettings } from './LocationSettings';
 import { ThemeSettings } from './ThemeSettings';
 import { PrayerSettings } from './PrayerSettings';
@@ -20,15 +19,7 @@ interface SettingsPanelProps {
 }
 
 export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
-  const { settings, updateSettings, resetSettings } = useSettingsStore();
   const [activeTab, setActiveTab] = useState<SettingsTab>('location');
-  const [hasChanges, setHasChanges] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      setHasChanges(false);
-    }
-  }, [isOpen]);
 
   const tabs = [
     { id: 'location' as SettingsTab, label: 'الموقع', icon: '📍' },
@@ -37,52 +28,35 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
     { id: 'sound' as SettingsTab, label: 'الصوت', icon: '🔊' },
   ];
 
-  const handleSave = () => {
-    setHasChanges(false);
-    onClose();
-  };
-
-  const handleReset = () => {
-    if (confirm('هل أنت متأكد من إعادة تعيين جميع الإعدادات؟')) {
-      resetSettings();
-      setHasChanges(false);
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-dark-222 border-2 border-primary rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+      <div className="bg-[var(--color-background)] border border-[var(--color-secondary)] rounded-lg w-full max-w-4xl max-h-[85vh] overflow-hidden flex flex-col shadow-xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-primary/20">
-          <h2 className="text-3xl font-bold text-primary">الإعدادات</h2>
-          <div className="flex items-center gap-4">
-            {hasChanges && (
-              <span className="text-sm text-accent-d4">يوجد تغييرات غير محفوظة</span>
-            )}
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-primary/20 rounded-lg transition-colors"
-              aria-label="إغلاق"
-            >
-              <X className="w-6 h-6 text-primary" />
-            </button>
-          </div>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-secondary)]">
+          <h2 className="text-xl font-semibold text-[var(--color-text)]">الإعدادات</h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-[var(--color-secondary)]/20 rounded-md transition-colors"
+            aria-label="إغلاق"
+          >
+            <X className="w-5 h-5 text-[var(--color-text)]" />
+          </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-primary/20">
+        <div className="flex border-b border-[var(--color-secondary)]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`
-                flex-1 flex items-center justify-center gap-2 py-4 px-6
-                font-semibold transition-colors
+                flex-1 flex items-center justify-center gap-2 py-3 px-4
+                font-medium transition-colors border-b-2 -mb-px
                 ${activeTab === tab.id
-                  ? 'text-primary bg-primary/10 border-b-2 border-primary'
-                  : 'text-accent-d4 hover:bg-primary/5'
+                  ? 'text-[var(--color-primary)] border-[var(--color-primary)]'
+                  : 'text-[var(--color-secondary)] hover:text-[var(--color-text)] border-transparent hover:border-[var(--color-secondary)]'
                 }
               `}
             >
@@ -101,20 +75,12 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-4 p-6 border-t border-primary/20">
+        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-[var(--color-secondary)] bg-[var(--color-secondary)]/5">
           <button
-            onClick={handleReset}
-            className="flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-accent-d4 text-accent-d4 hover:bg-accent-d4/10 transition-colors"
+            onClick={onClose}
+            className="px-4 py-2 rounded-md border border-[var(--color-secondary)] text-[var(--color-text)] hover:bg-[var(--color-secondary)]/10 transition-colors"
           >
-            <RotateCcw className="w-5 h-5" />
-            <span>إعادة تعيين</span>
-          </button>
-          <button
-            onClick={handleSave}
-            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-dark-222 font-semibold hover:bg-primary/80 transition-colors"
-          >
-            <Save className="w-5 h-5" />
-            <span>حفظ</span>
+            إغلاق
           </button>
         </div>
       </div>

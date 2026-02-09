@@ -1,5 +1,5 @@
 /**
- * Countdown Timer component
+ * Countdown Timer component - Compact version for right side of clock
  */
 
 'use client';
@@ -7,7 +7,6 @@
 import { usePrayerStore } from '@/store';
 import { formatCountdown } from '@/lib/utils/countdown-timer';
 import { isFriday } from '@/lib/utils/date-formatter';
-import { Clock } from 'lucide-react';
 
 interface CountdownTimerProps {
   className?: string;
@@ -25,17 +24,19 @@ export function CountdownTimer({ className = '' }: CountdownTimerProps) {
   const iqamaCountdown = formatCountdown(Math.max(0, timeUntilIqama));
 
   return (
-    <div className={`text-center ${className}`}>
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <Clock className="w-6 h-6 text-primary animate-pulse" />
-        <h2 className="text-2xl font-semibold text-accent-d4">
-          الوقت حتى {prayerName}
-        </h2>
+    <div className={`text-right ${className}`}>
+      {/* Next prayer name */}
+      <div className="text-xl font-semibold mb-2 text-current">
+        {prayerName}
       </div>
-      <div className="text-6xl font-bold text-primary mb-4">
+
+      {/* Countdown time */}
+      <div className="text-6xl font-bold mb-2 text-primary">
         {countdown}
       </div>
-      <div className="text-xl text-accent-d4">
+
+      {/* Iqama countdown */}
+      <div className="text-lg text-secondary">
         الإقامة: {iqamaCountdown}
       </div>
     </div>

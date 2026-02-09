@@ -1,24 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* Theme Colors */
+  /* Default Theme Colors - will be overridden by theme */
+  --color-background: #1A1A1A;
+  --color-text: #FFEAD3;
   --color-primary: #1DCD9F;
-  --color-dark: #222222;
-  --color-light: #F1EFEC;
+  --color-secondary: #A0A0A0;
   --color-accent: #D4C9BE;
-
-  /* Background & Foreground */
-  --background: var(--color-dark);
-  --foreground: var(--color-light);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-background);
+  --color-text: var(--color-text);
   --color-primary: var(--color-primary);
-  --color-dark-222: var(--color-dark);
-  --color-light-f1: var(--color-light);
-  --color-accent-d4: var(--color-accent);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
   --font-cairo: var(--font-cairo);
 }
 
@@ -29,11 +25,21 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-text);
   font-family: var(--font-cairo), Arial, Helvetica, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme-specific styles */
+body.light {
+  color: #4A4A4A;
+}
+
+body.dark {
+  color: #FFEAD3;
 }
 
 /* Custom scrollbar for RTL support */
@@ -43,7 +49,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-dark);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -69,9 +75,35 @@ body {
   border-color: var(--color-primary);
 }
 
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+/* Light theme specific colors */
+.light .text-current {
+  color: #4A4A4A;
+}
+
+/* Dark theme specific colors */
+.dark .text-current {
+  color: #FFEAD3;
+}
+
 /* Islamic geometric pattern overlay */
 .islamic-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='%231DCD9F' stroke-opacity='0.1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='currentColor' stroke-opacity='0.05'/%3E%3C/svg%3E");
   background-size: 60px 60px;
 }
 
@@ -100,4 +132,12 @@ body {
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Theme transition */
+body,
+.text-primary,
+.bg-primary,
+.border-primary {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }

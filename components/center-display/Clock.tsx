@@ -33,7 +33,7 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
         ${className}
       `}
       style={{
-        textShadow: '0 0 30px rgba(29, 205, 159, 0.3)',
+        textShadow: '0 0 30px var(--color-primary)',
       }}
     >
       {formatTime()}
