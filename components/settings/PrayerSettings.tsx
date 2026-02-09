@@ -113,6 +113,49 @@ export function PrayerSettings() {
             onCheckedChange={(checked) => updatePrayerSettings({ useManualTimes: checked })}
           />
         </div>
+
+        {/* Manual Prayer Times Input */}
+        {settings.prayer.useManualTimes && (
+          <div className="space-y-4 p-5 border rounded-lg">
+            <Label className="text-base">أوقات الصلاة اليدوية</Label>
+            <div className="grid grid-cols-5 gap-4 py-2">
+              {Object.entries(settings.prayer.manualPrayerTimes || {
+                Fajr: '05:00',
+                Dhuhr: '12:30',
+                Asr: '15:45',
+                Maghrib: '18:30',
+                Isha: '19:45',
+              }).map(([prayer, time]) => (
+                <div key={prayer} className="space-y-2">
+                  <Label className="text-xs text-muted-foreground text-center">
+                    {prayer === 'Fajr' ? 'الفجر' :
+                     prayer === 'Dhuhr' ? 'الظهر' :
+                     prayer === 'Asr' ? 'العصر' :
+                     prayer === 'Maghrib' ? 'المغرب' :
+                     prayer === 'Isha' ? 'العشاء' : prayer}
+                  </Label>
+                  <Input
+                    type="time"
+                    value={time}
+                    onChange={(e) => updatePrayerSettings({
+                      manualPrayerTimes: {
+                        ...(settings.prayer.manualPrayerTimes || {
+                          Fajr: '05:00',
+                          Dhuhr: '12:30',
+                          Asr: '15:45',
+                          Maghrib: '18:30',
+                          Isha: '19:45',
+                        }),
+                        [prayer]: e.target.value
+                      }
+                    })}
+                    className="text-center h-11"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

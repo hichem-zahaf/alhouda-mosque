@@ -6,8 +6,9 @@
 
 import { useEffect, useState } from 'react';
 import { usePrayerStore, useSettingsStore } from '@/store';
-import { fetchPrayerTimes, parsePrayerTimes, prayerTimeToDate, formatDateForAPI } from '@/lib/prayer-times/aladhan-api';
+import { fetchPrayerTimes, parsePrayerTimes, prayerTimeToDate, formatDateForAPI, calculateIqamaTime, getPrayerNameArabic } from '@/lib/prayer-times/aladhan-api';
 import { getNextPrayer } from '@/lib/utils/countdown-timer';
+import { PrayerName } from '@/store/use-prayer-store';
 
 export function usePrayerTimes() {
   const { settings } = useSettingsStore();
@@ -35,10 +36,38 @@ export function usePrayerTimes() {
   // Get today's date in YYYY-MM-DD format
   const getTodayDate = () => formatDateForAPI(new Date());
 
+  // Create prayer times from manual settings
+  const createManualPrayerTimes = () => {
+    const prayers: PrayerName[] = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+    const manualTimes = settings.prayer.manualPrayerTimes || {
+      Fajr: '05:00',
+      Dhuhr: '12:30',
+      Asr: '15:45',
+      Maghrib: '18:30',
+      Isha: '19:45',
+    };
+
+    return prayers.map((prayer) => {
+      const time = manualTimes[prayer];
+      const iqamaTime = calculateIqamaTime(time, settings.prayer.iqamaAdjustments[prayer]);
+
+      return {
+        name: prayer,
+        nameArabic: getPrayerNameArabic(prayer),
+        time,
+        iqamaTime,
+        isNext: false,
+        isCurrent: false,
+      };
+    });
+  };
+
   // Fetch prayer times on mount and when settings change
   useEffect(() => {
     if (settings.prayer.useManualTimes) {
-      // Manual mode - prayer times should be loaded separately
+      // Manual mode - use manually set times
+      const prayers = createManualPrayerTimes();
+      setTodayPrayers(prayers);
       setIsLoading(false);
       return;
     }
@@ -95,6 +124,7 @@ export function usePrayerTimes() {
     settings.prayer.calculationMethod,
     settings.prayer.iqamaAdjustments,
     settings.prayer.useManualTimes,
+    settings.prayer.manualPrayerTimes,
     setTodayPrayers,
     setCachedPrayerData,
     setHijriDate,

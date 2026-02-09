@@ -37,11 +37,20 @@ export interface IqamaAdjustments {
   Isha: number;
 }
 
+export interface ManualPrayerTimes {
+  Fajr: string;
+  Dhuhr: string;
+  Asr: string;
+  Maghrib: string;
+  Isha: string;
+}
+
 export interface PrayerSettings {
   calculationMethod: number;
   asrMethod: number;
   iqamaAdjustments: IqamaAdjustments;
   useManualTimes: boolean;
+  manualPrayerTimes: ManualPrayerTimes;
 }
 
 export interface SoundSettings {
@@ -126,6 +135,13 @@ const defaultSettings: Settings = {
       Isha: 10,
     },
     useManualTimes: false,
+    manualPrayerTimes: {
+      Fajr: '05:00',
+      Dhuhr: '12:30',
+      Asr: '15:45',
+      Maghrib: '18:30',
+      Isha: '19:45',
+    },
   },
   sound: {
     enabled: true,
