@@ -2,7 +2,9 @@
  * Audio player utility for playing Adhan and notification sounds
  */
 
-import { SoundType } from '@/store/use-audio-store';
+import { type SoundType } from '@/store/use-audio-store';
+
+export type { SoundType } from '@/store/use-audio-store';
 
 export interface AudioPlayerConfig {
   volume: number;
