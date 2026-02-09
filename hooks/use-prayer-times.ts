@@ -25,6 +25,7 @@ export function usePrayerTimes() {
     isManualMode,
     cachedPrayerData,
     setCachedPrayerData,
+    setHijriDate,
     isCachedDataValid,
   } = usePrayerStore();
 
@@ -50,6 +51,7 @@ export function usePrayerTimes() {
       if (isCachedDataValid(todayDate, currentMethod) && cachedPrayerData) {
         // Load from cache
         setTodayPrayers(cachedPrayerData.prayers);
+        setHijriDate(cachedPrayerData.hijriDate);
         setIsLoading(false);
         return;
       }
@@ -68,11 +70,15 @@ export function usePrayerTimes() {
         const prayers = parsePrayerTimes(response, settings.prayer.iqamaAdjustments);
         setTodayPrayers(prayers);
 
+        // Save Hijri date from API
+        setHijriDate(response.data.date.hijri);
+
         // Save to cache
         setCachedPrayerData({
           date: todayDate,
           calculationMethod: currentMethod,
           prayers,
+          hijriDate: response.data.date.hijri,
         });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch prayer times');
@@ -90,9 +96,10 @@ export function usePrayerTimes() {
     settings.prayer.iqamaAdjustments,
     settings.prayer.useManualTimes,
     setTodayPrayers,
+    setCachedPrayerData,
+    setHijriDate,
     cachedPrayerData,
     isCachedDataValid,
-    setCachedPrayerData,
   ]);
 
   // Update next prayer and countdowns

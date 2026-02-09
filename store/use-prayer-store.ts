@@ -19,10 +19,26 @@ export interface PrayerInfo {
   iqamaTime: Date;
 }
 
+export interface HijriDateInfo {
+  day: string;
+  month: {
+    number: number;
+    en: string;
+    ar: string;
+  };
+  year: string;
+  designation: {
+    abbreviated: string;
+    expanded: string;
+  };
+  holidays?: string[];
+}
+
 interface CachedPrayerData {
   date: string; // YYYY-MM-DD
   calculationMethod: number;
   prayers: PrayerTime[];
+  hijriDate: HijriDateInfo | null;
 }
 
 interface PrayerState {
@@ -34,6 +50,7 @@ interface PrayerState {
   isManualMode: boolean;
   lastUpdated: number | null;
   cachedPrayerData: CachedPrayerData | null; // Cache with date and method
+  hijriDate: HijriDateInfo | null; // Hijri date from API
   isLoading: boolean;
   error: string | null;
 
@@ -45,6 +62,7 @@ interface PrayerState {
   setManualMode: (isManual: boolean) => void;
   updatePrayerTime: (name: PrayerName, time: string, iqamaTime: string) => void;
   setCachedPrayerData: (data: CachedPrayerData | null) => void;
+  setHijriDate: (hijri: HijriDateInfo | null) => void;
   isCachedDataValid: (date: string, method: number) => boolean;
   reset: () => void;
 }
@@ -103,6 +121,7 @@ export const usePrayerStore = create<PrayerState>()(
       isManualMode: false,
       lastUpdated: null,
       cachedPrayerData: null,
+      hijriDate: null,
       isLoading: false,
       error: null,
 
@@ -127,6 +146,8 @@ export const usePrayerStore = create<PrayerState>()(
 
       setCachedPrayerData: (data) => set({ cachedPrayerData: data }),
 
+      setHijriDate: (hijri) => set({ hijriDate: hijri }),
+
       isCachedDataValid: (date, method) => {
         const cached = get().cachedPrayerData;
         return cached !== null && cached.date === date && cached.calculationMethod === method;
@@ -142,6 +163,7 @@ export const usePrayerStore = create<PrayerState>()(
           isManualMode: false,
           lastUpdated: null,
           cachedPrayerData: null,
+          hijriDate: null,
           error: null,
         }),
     }),
@@ -152,6 +174,7 @@ export const usePrayerStore = create<PrayerState>()(
         isManualMode: state.isManualMode,
         lastUpdated: state.lastUpdated,
         cachedPrayerData: state.cachedPrayerData,
+        hijriDate: state.hijriDate,
       }),
     }
   )
