@@ -12,6 +12,8 @@ export interface LocationSettings {
   coordinates: Coordinates;
 }
 
+export type ArabicFont = 'cairo' | 'amiri' | 'tajawal' | 'ibm-plex';
+
 export interface ThemeColors {
   primary: string;
   dark: string;
@@ -21,7 +23,7 @@ export interface ThemeColors {
 
 export interface ThemeSettings {
   colors: ThemeColors;
-  font: string;
+  font: ArabicFont;
   background: string | null;
 }
 
@@ -106,7 +108,7 @@ const defaultSettings: Settings = {
       light: '#F1EFEC',
       accent: '#D4C9BE',
     },
-    font: 'Cairo',
+    font: 'cairo',
     background: null,
   },
   prayer: {

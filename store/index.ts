@@ -18,6 +18,7 @@ export type {
   IqamaAdjustments,
   SoundSettings,
   DisplaySettings,
+  ArabicFont,
 } from './use-settings-store';
 
 export type {

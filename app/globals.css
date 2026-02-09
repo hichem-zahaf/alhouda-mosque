@@ -84,7 +84,6 @@
   --custom-primary: var(--color-primary);
   --custom-secondary: var(--color-secondary);
   --custom-accent: var(--color-accent);
-  --font-cairo: var(--font-cairo);
 }
 
 * {
@@ -96,7 +95,7 @@
 body {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: var(--font-cairo), Arial, Helvetica, sans-serif;
+  font-family: var(--font-arabic);
   min-height: 100vh;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -209,4 +208,74 @@ body,
 .bg-primary,
 .border-primary {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Arabic Typography Utilities */
+:root {
+  --selected-font: var(--font-cairo), "Noto Sans Arabic", sans-serif;
+}
+
+body {
+  font-family: var(--selected-font);
+}
+
+.font-arabic {
+  font-family: var(--selected-font);
+}
+
+/* Cairo - Modern geometric Arabic font (sans-serif) */
+.font-cairo {
+  font-family: var(--font-cairo), "Noto Sans Arabic", "Arabic UI", sans-serif;
+}
+
+/* Amiri - Traditional Naskh-style Arabic font (serif) */
+.font-amiri {
+  font-family: var(--font-amiri), "Traditional Arabic", "Arabic Typesetting", serif;
+}
+
+/* Tajawal - Modern Arabic font (sans-serif) */
+.font-tajawal {
+  font-family: var(--font-tajawal), "Noto Sans Arabic", "Arabic UI", sans-serif;
+}
+
+/* IBM Plex Sans Arabic - Clean, modern Arabic font (sans-serif) */
+.font-ibm-plex {
+  font-family: var(--font-ibm-plex), "Noto Sans Arabic", "Arabic UI", sans-serif;
+}
+
+/* For Quranic verses and religious text - uses Amiri */
+.font-quran {
+  font-family: var(--font-amiri), "Traditional Arabic", serif;
+  line-height: 2;
+  letter-spacing: 0.02em;
+}
+
+/* For headings and titles */
+.font-heading {
+  font-weight: 700;
+}
+
+/* For body text */
+.font-body {
+  font-weight: 400;
+}
+
+/* Arabic text alignment and spacing */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .text-center {
+  text-align: center;
+}
+
+/* Improved Arabic legibility */
+.font-arabic,
+.font-cairo,
+.font-amiri,
+.font-tajawal,
+.font-ibm-plex {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

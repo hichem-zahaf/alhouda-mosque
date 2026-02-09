@@ -1,12 +1,42 @@
 import type { Metadata } from "next";
-import { Cairo } from "next/font/google";
+import { Cairo, Amiri, Tajawal, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { FontProvider } from "@/components/providers/FontProvider";
 import "./globals.css";
 
+// Cairo - Modern geometric Arabic font (sans-serif)
 const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic", "latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  preload: true,
+});
+
+// Amiri - Traditional Naskh-style Arabic font (serif)
+const amiri = Amiri({
+  variable: "--font-amiri",
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  display: "swap",
+  preload: true,
+});
+
+// Tajawal - Modern Arabic font (sans-serif)
+const tajawal = Tajawal({
+  variable: "--font-tajawal",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+  preload: true,
+});
+
+// IBM Plex Sans Arabic - Clean, modern Arabic font (sans-serif)
+const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-ibm-plex",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -21,8 +51,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${cairo.variable} font-cairo antialiased bg-dark-222`}>
-        {children}
+      <body className={`${cairo.variable} ${amiri.variable} ${tajawal.variable} ${ibmPlexSansArabic.variable} font-arabic antialiased bg-dark-222`}>
+        <FontProvider>{children}</FontProvider>
       </body>
     </html>
   );

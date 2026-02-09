@@ -43,16 +43,17 @@ export function QuoteDisplay({ className = '', category = 'general' }: QuoteDisp
         flex items-center gap-4
         px-8 py-4 rounded-xl
         bg-secondary/10
+        font-arabic
         ${className}
       `}
     >
       <Quote className="w-8 h-8 text-primary flex-shrink-0" />
       <div className="flex-1">
-        <p className="text-2xl font-semibold text-current text-center leading-relaxed">
+        <p className="text-2xl font-semibold text-current text-center leading-relaxed font-quran">
           {currentQuote.text}
         </p>
         {currentQuote.source && (
-          <p className="text-lg text-secondary text-center mt-2">
+          <p className="text-lg text-secondary text-center mt-2 font-amiri">
             {currentQuote.source}
           </p>
         )}

@@ -4,13 +4,20 @@
 
 'use client';
 
-import { useSettingsStore } from '@/store';
+import { useSettingsStore, type ArabicFont } from '@/store';
 import { useThemeStore, themes } from '@/store/use-theme-store';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
+const arabicFonts: { id: ArabicFont; name: string; style: string; description: string }[] = [
+  { id: 'cairo', name: 'Cairo', style: 'font-cairo', description: 'خط حديث ومتنوع' },
+  { id: 'amiri', name: 'Amiri', style: 'font-amiri', description: 'خط نسخ تقليدي' },
+  { id: 'tajawal', name: 'Tajawal', style: 'font-tajawal', description: 'خط عصري وأنيق' },
+  { id: 'ibm-plex', name: 'IBM Plex', style: 'font-ibm-plex', description: 'خط نظيف وواضح' },
+];
+
 export function ThemeSettings() {
-  const { settings, updateMosqueSettings } = useSettingsStore();
+  const { settings, updateMosqueSettings, updateThemeSettings } = useSettingsStore();
   const { currentTheme, setTheme, currentThemeIndex } = useThemeStore();
 
   return (
@@ -32,6 +39,36 @@ export function ThemeSettings() {
             dir="rtl"
             className="h-11"
           />
+        </div>
+
+        {/* Font Selection */}
+        <div className="space-y-3 py-4">
+          <Label className="text-base">الخط</Label>
+          <div className="grid grid-cols-2 gap-3">
+            {arabicFonts.map((font) => (
+              <button
+                key={font.id}
+                onClick={() => updateThemeSettings({ font: font.id })}
+                className={`
+                  p-4 rounded-lg border-2 transition-all text-right
+                  ${settings.theme.font === font.id
+                    ? 'border-primary bg-primary/10'
+                    : 'border-border hover:border-border'
+                  }
+                `}
+              >
+                <div className={`${font.style} text-lg font-semibold`}>
+                  {font.name}
+                </div>
+                <div className="text-sm text-muted-foreground mt-1">
+                  {font.description}
+                </div>
+                <div className={`${font.style} text-xs mt-2 opacity-80`}>
+                  بسم الله الرحمن الرحيم
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Theme Selection */}
