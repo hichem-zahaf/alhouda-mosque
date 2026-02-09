@@ -59,7 +59,7 @@ export const themes: Theme[] = [
   {
     id: 'light-4',
     name: 'فاتح 4',
-    type: 'light',
+    type: 'dark',
     colors: {
       background: '#BFC9D1',
       text: '#FFFDF1',
