@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useCurrentTime } from '@/hooks/use-current-time';
 import { calculateCountdown } from '@/lib/utils/countdown-timer';
 import { prayerTimeToDate } from '@/lib/prayer-times/aladhan-api';
+import { useThemeStore } from '@/store/use-theme-store';
 import type { PrayerTime } from '@/store/use-prayer-store';
 
 interface PrayerCardProps {
@@ -17,6 +18,7 @@ interface PrayerCardProps {
 
 export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
   const [isAlternateTheme, setIsAlternateTheme] = useState(false);
+  const { currentTheme } = useThemeStore();
   const time = useCurrentTime();
 
   const countdown = calculateCountdown(prayer.time, time.date);
@@ -38,20 +40,12 @@ export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
   // Determine base styling based on prayer state
   const getBaseStyles = () => {
     if (isPast) {
-      return 'opacity-50 bg-gradient-to-br from-zinc-800/60 to-zinc-900/40 border-2 border-zinc-700/30';
+      return 'opacity-40';
     }
     if (prayer.isNext) {
-      return 'bg-gradient-to-br from-emerald-500/30 to-emerald-600/20 border-2 border-emerald-400 shadow-lg shadow-emerald-500/30';
+      return 'bg-primary/20 border-primary shadow-lg';
     }
-    return 'bg-gradient-to-br from-zinc-800/80 to-zinc-900/60 border-2 border-emerald-500/30';
-  };
-
-  // Apply alternate theme overlay when clicked
-  const getThemeStyles = () => {
-    if (isAlternateTheme && !isPast) {
-      return 'from-blue-500/30 to-purple-600/20 border-blue-400/60 shadow-blue-500/20';
-    }
-    return '';
+    return 'bg-background/80 border-primary/30';
   };
 
   return (
@@ -63,39 +57,75 @@ export function PrayerCard({ prayer, className = '' }: PrayerCardProps) {
         transition-all duration-300
         cursor-pointer
         hover:scale-105 hover:shadow-xl
-        bg-gradient-to-br ${getBaseStyles()} ${getThemeStyles()}
-        ${prayer.isCurrent ? 'ring-4 ring-emerald-400/30' : ''}
+        border-2
+        ${getBaseStyles()}
+        ${isAlternateTheme && !isPast ? 'bg-accent/20 border-accent' : ''}
+        ${prayer.isCurrent ? 'ring-4 ring-primary/30' : ''}
         ${className}
       `}
+      style={{
+        backgroundColor: isAlternateTheme && !isPast
+          ? `${currentTheme.colors.accent}20`
+          : prayer.isNext
+          ? `${currentTheme.colors.primary}20`
+          : `${currentTheme.colors.background}CC`,
+        borderColor: isAlternateTheme && !isPast
+          ? currentTheme.colors.accent
+          : prayer.isNext
+          ? currentTheme.colors.primary
+          : `${currentTheme.colors.primary}4D`,
+      }}
     >
       {prayer.isNext && (
-        <div className="absolute top-0 right-0 bg-emerald-400 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">
+        <div
+          className="absolute top-0 right-0 text-black text-xs font-bold px-3 py-1 rounded-bl-lg"
+          style={{ backgroundColor: currentTheme.colors.primary }}
+        >
           القادم
         </div>
       )}
 
       <div className="text-center">
-        <h3 className="text-2xl font-bold text-emerald-400 mb-4">
+        <h3
+          className="text-2xl font-bold mb-4"
+          style={{ color: currentTheme.colors.primary }}
+        >
           {prayer.nameArabic}
         </h3>
 
         <div className="space-y-2">
           <div>
-            <p className="text-sm text-zinc-400 mb-1">الأذان</p>
-            <p className="text-6xl font-black text-white drop-shadow-lg">
+            <p className="text-sm mb-1" style={{ color: currentTheme.colors.secondary }}>
+              الأذان
+            </p>
+            <p
+              className="text-6xl font-black drop-shadow-lg"
+              style={{ color: currentTheme.colors.text }}
+            >
               {prayer.time}
             </p>
           </div>
 
-          <div className="border-t border-emerald-500/20 pt-2">
-            <p className="text-sm text-zinc-400 mb-1">الإقامة</p>
-            <p className="text-4xl font-bold text-emerald-300">
+          <div
+            className="border-t pt-2"
+            style={{ borderColor: `${currentTheme.colors.primary}33` }}
+          >
+            <p className="text-sm mb-1" style={{ color: currentTheme.colors.secondary }}>
+              الإقامة
+            </p>
+            <p
+              className="text-4xl font-bold"
+              style={{ color: currentTheme.colors.accent }}
+            >
               {getIqamaMinutes()}
             </p>
           </div>
 
           {!prayer.isCurrent && !isPast && (
-            <div className="text-sm text-emerald-400/80 mt-2">
+            <div
+              className="text-sm mt-2"
+              style={{ color: `${currentTheme.colors.primary}CC` }}
+            >
               الباقي: {countdown.formatted}
             </div>
           )}
