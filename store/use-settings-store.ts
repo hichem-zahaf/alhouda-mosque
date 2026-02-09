@@ -25,6 +25,8 @@ export interface ThemeSettings {
   colors: ThemeColors;
   font: ArabicFont;
   background: string | null;
+  backgroundImage: string | null;
+  backgroundImageEnabled: boolean;
 }
 
 export interface IqamaAdjustments {
@@ -110,6 +112,8 @@ const defaultSettings: Settings = {
     },
     font: 'cairo',
     background: null,
+    backgroundImage: null,
+    backgroundImageEnabled: false,
   },
   prayer: {
     calculationMethod: 1, // Muslim World League

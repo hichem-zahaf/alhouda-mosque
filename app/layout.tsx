@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cairo, Amiri, Tajawal, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { FontProvider } from "@/components/providers/FontProvider";
+import { BackgroundImage } from "@/components/background/BackgroundImage";
 import "./globals.css";
 
 // Cairo - Modern geometric Arabic font (sans-serif)
@@ -52,6 +53,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body className={`${cairo.variable} ${amiri.variable} ${tajawal.variable} ${ibmPlexSansArabic.variable} font-cairo antialiased bg-dark-222`}>
+        <BackgroundImage />
         <FontProvider>{children}</FontProvider>
       </body>
     </html>

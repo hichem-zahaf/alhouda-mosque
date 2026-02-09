@@ -8,6 +8,7 @@ import { useSettingsStore, type ArabicFont } from '@/store';
 import { useThemeStore, themes } from '@/store/use-theme-store';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { BackgroundImageSelector } from './BackgroundImageSelector';
 
 const arabicFonts: { id: ArabicFont; name: string; style: string; description: string }[] = [
   { id: 'cairo', name: 'Cairo', style: 'font-cairo', description: 'خط حديث ومتنوع' },
@@ -39,6 +40,11 @@ export function ThemeSettings() {
             dir="rtl"
             className="h-11"
           />
+        </div>
+
+        {/* Background Image Selection */}
+        <div className="py-4">
+          <BackgroundImageSelector />
         </div>
 
         {/* Font Selection */}
