@@ -4,6 +4,7 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useCurrentTime } from '@/hooks/use-current-time';
 
 interface ClockProps {
@@ -12,7 +13,12 @@ interface ClockProps {
 }
 
 export function Clock({ className = '', showSeconds = true }: ClockProps) {
+  const [isClient, setIsClient] = useState(false);
   const time = useCurrentTime();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const formatTime = () => {
     const hours = String(time.hours).padStart(2, '0');
@@ -25,6 +31,26 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
     return `${hours}:${minutes}`;
   };
 
+  // Don't render until client-side to prevent hydration mismatch
+  if (!isClient) {
+    return (
+      <div
+        className={`
+          text-8xl font-bold text-primary
+          tracking-wider
+          ${className}
+        `}
+        style={{
+          textShadow: '0 0 30px var(--color-primary)',
+          fontSize: '16rem',
+        }}
+        aria-hidden="true"
+      >
+        00:00:00
+      </div>
+    );
+  }
+
   return (
     <div
       className={`
@@ -36,7 +62,6 @@ export function Clock({ className = '', showSeconds = true }: ClockProps) {
         textShadow: '0 0 30px var(--color-primary)',
         fontSize: '16rem',
       }}
-      suppressHydrationWarning
     >
       {formatTime()}
     </div>
