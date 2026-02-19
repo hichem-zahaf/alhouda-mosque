@@ -28,7 +28,7 @@ export function useDisplayMode(config: DisplayModeConfig = {}) {
   const { todayPrayers } = usePrayerStore();
 
   const {
-    prePrayerWindowMinutes = 2,
+    prePrayerWindowMinutes = 3,
     adhanDurationMinutes = 3,
     postPrayerDurationMinutes = 4,
   } = config;

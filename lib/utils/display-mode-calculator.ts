@@ -23,7 +23,7 @@ export interface DisplayModeConfig {
 }
 
 const DEFAULT_CONFIG: DisplayModeConfig = {
-  prePrayerWindowMinutes: 2,
+  prePrayerWindowMinutes: 3,
   adhanDurationMinutes: 3,
   postPrayerDurationMinutes: 4,
 };
@@ -38,7 +38,25 @@ export function calculateDisplayMode(
 ): DisplayModeCalculation {
   // Check each prayer for mode conditions
   for (const prayer of prayers) {
-    // Check post-prayer first (highest priority after adhan)
+    // Check adhan window FIRST (highest priority at prayer time)
+    if (isInAdhanWindow(prayer.time, currentTime, config.adhanDurationMinutes)) {
+      return {
+        mode: 'adhan',
+        activePrayer: prayer.name,
+        reason: `In adhan window for ${prayer.name}`,
+      };
+    }
+
+    // Check pre-prayer window (before prayer time)
+    if (isInPrePrayerWindow(prayer.time, currentTime, config.prePrayerWindowMinutes)) {
+      return {
+        mode: 'pre-prayer',
+        activePrayer: prayer.name,
+        reason: `In pre-prayer window for ${prayer.name}`,
+      };
+    }
+
+    // Check post-prayer window (after adhan completes)
     if (
       isInPostPrayerWindow(
         prayer.time,
@@ -51,24 +69,6 @@ export function calculateDisplayMode(
         mode: 'post-prayer',
         activePrayer: prayer.name,
         reason: `In post-prayer window for ${prayer.name}`,
-      };
-    }
-
-    // Check adhan window
-    if (isInAdhanWindow(prayer.time, currentTime, config.adhanDurationMinutes)) {
-      return {
-        mode: 'adhan',
-        activePrayer: prayer.name,
-        reason: `In adhan window for ${prayer.name}`,
-      };
-    }
-
-    // Check pre-prayer window
-    if (isInPrePrayerWindow(prayer.time, currentTime, config.prePrayerWindowMinutes)) {
-      return {
-        mode: 'pre-prayer',
-        activePrayer: prayer.name,
-        reason: `In pre-prayer window for ${prayer.name}`,
       };
     }
   }
