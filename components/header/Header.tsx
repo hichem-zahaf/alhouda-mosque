@@ -8,6 +8,8 @@ import { MosqueLogo } from './MosqueLogo';
 import { DateDisplay } from './DateDisplay';
 import { Temperature } from './Temperature';
 import { SettingsToggle } from './SettingsToggle';
+import { DebugModeToggle } from './DebugModeToggle';
+import { useDebugMode } from '@/hooks/use-debug-mode';
 
 interface HeaderProps {
   onSettingsToggle?: () => void;
@@ -15,6 +17,8 @@ interface HeaderProps {
 }
 
 export function Header({ onSettingsToggle, className = '' }: HeaderProps) {
+  const { isDebugMode } = useDebugMode();
+
   return (
     <header
       className={`
@@ -37,8 +41,9 @@ export function Header({ onSettingsToggle, className = '' }: HeaderProps) {
         <DateDisplay />
 
         {/* Temperature and Settings - absolute positioned on right */}
-        <div className="absolute right-6 flex items-center gap-4">
+        <div className="absolute right-6 flex items-center gap-2">
           <Temperature />
+          {isDebugMode && <DebugModeToggle />}
           {onSettingsToggle && (
             <SettingsToggle onToggle={onSettingsToggle} />
           )}
@@ -49,8 +54,9 @@ export function Header({ onSettingsToggle, className = '' }: HeaderProps) {
       <div className="md:hidden flex flex-col items-center w-full">
         <div className="flex items-center justify-between w-full mb-2">
           <MosqueLogo />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <Temperature />
+            {isDebugMode && <DebugModeToggle />}
             {onSettingsToggle && (
               <SettingsToggle onToggle={onSettingsToggle} />
             )}
