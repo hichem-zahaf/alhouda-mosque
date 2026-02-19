@@ -4,11 +4,12 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { usePrayerStore, useSettingsStore } from '@/store';
 import { fetchPrayerTimes, parsePrayerTimes, prayerTimeToDate, formatDateForAPI, calculateIqamaTime, getPrayerNameArabic } from '@/lib/prayer-times/aladhan-api';
 import { getNextPrayer } from '@/lib/utils/countdown-timer';
 import { PrayerName } from '@/store/use-prayer-store';
+import { Shafaq, MidnightMode, LatitudeAdjustmentMethod, CalendarMethod } from '@/lib/prayer-times/prayer-times.types';
 
 export function usePrayerTimes() {
   const { settings } = useSettingsStore();
@@ -28,6 +29,7 @@ export function usePrayerTimes() {
     setCachedPrayerData,
     setHijriDate,
     isCachedDataValid,
+    clearCache,
   } = usePrayerStore();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +95,16 @@ export function usePrayerTimes() {
         const response = await fetchPrayerTimes({
           latitude: settings.location.coordinates.lat,
           longitude: settings.location.coordinates.lng,
-          method: currentMethod,
+          method: settings.prayer.calculationMethod,
+          school: settings.prayer.school,
+          shafaq: settings.prayer.shafaq,
+          tune: settings.prayer.tune,
+          midnightMode: settings.prayer.midnightMode,
+          latitudeAdjustmentMethod: settings.prayer.latitudeAdjustmentMethod,
+          calendarMethod: settings.prayer.calendarMethod,
+          iso8601: settings.prayer.iso8601,
+          timezonestring: settings.prayer.timezone || undefined,
+          adjustment: settings.prayer.calendarAdjustment,
         });
 
         const prayers = parsePrayerTimes(response, settings.prayer.iqamaAdjustments);
@@ -105,7 +116,7 @@ export function usePrayerTimes() {
         // Save to cache
         setCachedPrayerData({
           date: todayDate,
-          calculationMethod: currentMethod,
+          calculationMethod: settings.prayer.calculationMethod,
           prayers,
           hijriDate: response.data.date.hijri,
         });
@@ -187,6 +198,72 @@ export function usePrayerTimes() {
     return () => clearInterval(interval);
   }, [todayPrayers, setNextPrayer, setCurrentPrayer, setTimeUntilNext, setTimeUntilIqama]);
 
+  // Refetch prayer times from API (clears cache first)
+  const refetchPrayerTimes = useCallback(async () => {
+    if (settings.prayer.useManualTimes) {
+      const prayers = createManualPrayerTimes();
+      setTodayPrayers(prayers);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+    clearCache();
+
+    try {
+      const todayDate = getTodayDate();
+      const response = await fetchPrayerTimes({
+        latitude: settings.location.coordinates.lat,
+        longitude: settings.location.coordinates.lng,
+        method: settings.prayer.calculationMethod,
+        school: settings.prayer.school,
+        shafaq: settings.prayer.shafaq,
+        tune: settings.prayer.tune,
+        midnightMode: settings.prayer.midnightMode,
+        latitudeAdjustmentMethod: settings.prayer.latitudeAdjustmentMethod,
+        calendarMethod: settings.prayer.calendarMethod,
+        iso8601: settings.prayer.iso8601,
+        timezonestring: settings.prayer.timezone || undefined,
+        adjustment: settings.prayer.calendarAdjustment,
+      });
+
+      const prayers = parsePrayerTimes(response, settings.prayer.iqamaAdjustments);
+      setTodayPrayers(prayers);
+      setHijriDate(response.data.date.hijri);
+
+      setCachedPrayerData({
+        date: todayDate,
+        calculationMethod: settings.prayer.calculationMethod,
+        prayers,
+        hijriDate: response.data.date.hijri,
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch prayer times');
+      console.error('Error fetching prayer times:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [
+    settings.prayer.useManualTimes,
+    settings.prayer.calculationMethod,
+    settings.prayer.school,
+    settings.prayer.shafaq,
+    settings.prayer.tune,
+    settings.prayer.midnightMode,
+    settings.prayer.latitudeAdjustmentMethod,
+    settings.prayer.calendarMethod,
+    settings.prayer.iso8601,
+    settings.prayer.timezone,
+    settings.prayer.calendarAdjustment,
+    settings.prayer.iqamaAdjustments,
+    settings.location.coordinates.lat,
+    settings.location.coordinates.lng,
+    clearCache,
+    setTodayPrayers,
+    setHijriDate,
+    setCachedPrayerData,
+  ]);
+
   return {
     todayPrayers,
     nextPrayer,
@@ -196,5 +273,6 @@ export function usePrayerTimes() {
     isLoading,
     error,
     isManualMode,
+    refetchPrayerTimes,
   };
 }

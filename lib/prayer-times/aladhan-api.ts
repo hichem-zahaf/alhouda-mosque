@@ -4,6 +4,10 @@ import {
   PrayerTimesCalculationParams,
   CalculationMethod,
   ManualPrayerTimes,
+  Shafaq,
+  MidnightMode,
+  LatitudeAdjustmentMethod,
+  CalendarMethod,
 } from './prayer-times.types';
 import { PrayerName, PrayerTime } from '@/store/use-prayer-store';
 
@@ -24,6 +28,35 @@ export async function fetchPrayerTimes(
 
   if (date) {
     url.searchParams.append('date', date);
+  }
+
+  // Add optional parameters
+  if (params.shafaq) {
+    url.searchParams.append('shafaq', params.shafaq);
+  }
+  if (params.tune) {
+    url.searchParams.append('tune', params.tune);
+  }
+  if (params.school !== undefined) {
+    url.searchParams.append('school', params.school.toString());
+  }
+  if (params.midnightMode !== undefined) {
+    url.searchParams.append('midnightMode', params.midnightMode.toString());
+  }
+  if (params.latitudeAdjustmentMethod !== undefined) {
+    url.searchParams.append('latitudeAdjustmentMethod', params.latitudeAdjustmentMethod.toString());
+  }
+  if (params.calendarMethod) {
+    url.searchParams.append('calendarMethod', params.calendarMethod);
+  }
+  if (params.iso8601 !== undefined) {
+    url.searchParams.append('iso8601', params.iso8601.toString());
+  }
+  if (params.timezonestring) {
+    url.searchParams.append('timezonestring', params.timezonestring);
+  }
+  if (params.adjustment !== undefined) {
+    url.searchParams.append('adjustment', params.adjustment.toString());
   }
 
   const response = await fetch(url.toString());

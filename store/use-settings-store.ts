@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { Shafaq, MidnightMode, LatitudeAdjustmentMethod, CalendarMethod } from '@/lib/prayer-times/prayer-times.types';
 
 export interface Coordinates {
   lat: number;
@@ -48,9 +49,19 @@ export interface ManualPrayerTimes {
 export interface PrayerSettings {
   calculationMethod: number;
   asrMethod: number;
+  school: number; // 0 = Shafi, 1 = Hanafi
   iqamaAdjustments: IqamaAdjustments;
   useManualTimes: boolean;
   manualPrayerTimes: ManualPrayerTimes;
+  // Advanced Aladhan API settings
+  shafaq: Shafaq;
+  tune: string; // Comma-separated: Imsak,Fajr,Sunrise,Dhuhr,Asr,Maghrib,Sunset,Isha,Midnight
+  midnightMode: MidnightMode;
+  latitudeAdjustmentMethod: LatitudeAdjustmentMethod;
+  calendarMethod: CalendarMethod;
+  iso8601: boolean;
+  timezone: string;
+  calendarAdjustment: number; // Days to adjust Islamic calendar (-2 to +2)
 }
 
 export interface SoundSettings {
@@ -127,6 +138,7 @@ const defaultSettings: Settings = {
   prayer: {
     calculationMethod: 1, // Muslim World League
     asrMethod: 1, // Shafi
+    school: 0, // Shafi
     iqamaAdjustments: {
       Fajr: 10,
       Dhuhr: 10,
@@ -142,6 +154,15 @@ const defaultSettings: Settings = {
       Maghrib: '18:30',
       Isha: '19:45',
     },
+    // Advanced Aladhan API settings
+    shafaq: Shafaq.General,
+    tune: '0,0,0,0,0,0,0,0,0', // No offsets by default
+    midnightMode: MidnightMode.Standard,
+    latitudeAdjustmentMethod: LatitudeAdjustmentMethod.AngleBased,
+    calendarMethod: CalendarMethod.HJCoSA,
+    iso8601: false,
+    timezone: '',
+    calendarAdjustment: 0,
   },
   sound: {
     enabled: true,

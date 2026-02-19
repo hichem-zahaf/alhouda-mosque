@@ -24,6 +24,7 @@
   "prayer": {
     "calculationMethod": 1,
     "asrMethod": 1,
+    "school": 0,
     "iqamaAdjustments": {
       "Fajr": 10,
       "Dhuhr": 10,
@@ -31,7 +32,22 @@
       "Maghrib": 5,
       "Isha": 10
     },
-    "useManualTimes": false
+    "useManualTimes": false,
+    "manualPrayerTimes": {
+      "Fajr": "05:00",
+      "Dhuhr": "12:30",
+      "Asr": "15:45",
+      "Maghrib": "18:30",
+      "Isha": "19:45"
+    },
+    "shafaq": "general",
+    "tune": "0,0,0,0,0,0,0,0,0",
+    "midnightMode": 0,
+    "latitudeAdjustmentMethod": 3,
+    "calendarMethod": "HJCoSA",
+    "iso8601": false,
+    "timezone": "",
+    "calendarAdjustment": 0
   },
   "sound": {
     "enabled": true,

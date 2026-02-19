@@ -4,7 +4,7 @@
 
 'use client';
 
-import { MapPin, Palette, Castle, Volume2 } from 'lucide-react';
+import { MapPin, Palette, Castle, Volume2, Globe } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -22,6 +22,7 @@ import { LocationSettings } from './LocationSettings';
 import { ThemeSettings } from './ThemeSettings';
 import { PrayerSettings } from './PrayerSettings';
 import { SoundSettings } from './SoundSettings';
+import { APISettings } from './APISettings';
 
 interface SettingsPanelProps {
   readonly isOpen: boolean;
@@ -51,6 +52,10 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 <Castle className="w-5 h-5 ml-2" />
                 <span className="text-base">الصلوات</span>
               </TabsTrigger>
+              <TabsTrigger value="api" className="flex-1 rounded-none border-b-2 data-[state=active]:border-emerald-500 py-4">
+                <Globe className="w-5 h-5 ml-2" />
+                <span className="text-base">API</span>
+              </TabsTrigger>
               <TabsTrigger value="sound" className="flex-1 rounded-none border-b-2 data-[state=active]:border-emerald-500 py-4">
                 <Volume2 className="w-5 h-5 ml-2" />
                 <span className="text-base">الصوت</span>
@@ -67,6 +72,9 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
             </TabsContent>
             <TabsContent value="prayer" className="m-0 p-8 focus-visible:outline-none">
               <PrayerSettings />
+            </TabsContent>
+            <TabsContent value="api" className="m-0 p-8 focus-visible:outline-none">
+              <APISettings />
             </TabsContent>
             <TabsContent value="sound" className="m-0 p-8 focus-visible:outline-none">
               <SoundSettings />

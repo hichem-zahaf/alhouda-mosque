@@ -64,6 +64,7 @@ interface PrayerState {
   setCachedPrayerData: (data: CachedPrayerData | null) => void;
   setHijriDate: (hijri: HijriDateInfo | null) => void;
   isCachedDataValid: (date: string, method: number) => boolean;
+  clearCache: () => void;
   reset: () => void;
 }
 
@@ -152,6 +153,8 @@ export const usePrayerStore = create<PrayerState>()(
         const cached = get().cachedPrayerData;
         return cached !== null && cached.date === date && cached.calculationMethod === method;
       },
+
+      clearCache: () => set({ cachedPrayerData: null }),
 
       reset: () =>
         set({

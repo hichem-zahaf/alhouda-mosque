@@ -1,5 +1,33 @@
 import { PrayerName } from '@/store/use-prayer-store';
 
+// Shafaq options for Moonsighting Committee method
+export enum Shafaq {
+  General = 'general',
+  Ahmer = 'ahmer',
+  Abyad = 'abyad',
+}
+
+// Midnight mode options
+export enum MidnightMode {
+  Standard = 0,
+  Jafari = 1,
+}
+
+// Latitude adjustment method for high latitudes
+export enum LatitudeAdjustmentMethod {
+  MiddleOfNight = 1,
+  OneSeventh = 2,
+  AngleBased = 3,
+}
+
+// Calendar calculation method
+export enum CalendarMethod {
+  HJCoSA = 'HJCoSA',
+  UAQ = 'UAQ',
+  DIYANET = 'DIYANET',
+  MATHEMATICAL = 'MATHEMATICAL',
+}
+
 export interface AladhanPrayerTimes {
   Fajr: string;
   Dhuhr: string;
@@ -70,7 +98,16 @@ export interface PrayerTimesCalculationParams {
   longitude: number;
   method?: number;
   asrMethod?: number;
+  school?: number; // 0 = Shafi, 1 = Hanafi
   date?: string; // YYYY-MM-DD format
+  shafaq?: Shafaq;
+  tune?: string; // Comma-separated string of 9 integers
+  midnightMode?: MidnightMode;
+  latitudeAdjustmentMethod?: LatitudeAdjustmentMethod;
+  calendarMethod?: CalendarMethod;
+  iso8601?: boolean;
+  timezonestring?: string;
+  adjustment?: number; // Calendar adjustment days (-2 to +2)
 }
 
 export interface ManualPrayerTimes {
