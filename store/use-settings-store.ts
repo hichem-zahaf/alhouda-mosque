@@ -112,7 +112,7 @@ interface SettingsState {
 
 const defaultSettings: Settings = {
   mosque: {
-    name: 'مسجد الحودة',
+    name: 'مسجد الهدى',
     logo: null,
   },
   location: {
