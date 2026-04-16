@@ -4,11 +4,11 @@
     "logo": null
   },
   "location": {
-    "city": "مكة المكرمة",
-    "country": "المملكة العربية السعودية",
+    "city": "معسكر",
+    "country": "الجزائر",
     "coordinates": {
-      "lat": 21.4225,
-      "lng": 39.8262
+      "lat": 35.2333,
+      "lng": -0.2833
     }
   },
   "theme": {

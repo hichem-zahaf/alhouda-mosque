@@ -100,8 +100,9 @@ export default function HomePage() {
         onClose={() => setIsSettingsOpen(false)}
       />
       <footer className="fixed bottom-2 right-2 text-white text-xs z-50">
-        <span className="bg-black px-1 py-0.5 rounded">
-          🇵🇸 made by <a href="https://llmaria.co" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-400">llmarifa.co</a>
+        <span className="bg-black px-1 py-0.5 rounded flex items-center gap-1">
+          <img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/flags/4x3/ps.svg" alt="Palestine" className="w-4 h-3 inline" />
+          made by <a href="https://llmaria.co" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-400">llmarifa.co</a>
         </span>
       </footer>
     </RTLWrapper>
