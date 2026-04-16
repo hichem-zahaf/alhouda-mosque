@@ -4,11 +4,11 @@
     "logo": null
   },
   "location": {
-    "city": "Bouhanifia",
+    "city": "Mascara",
     "country": "Algeria",
     "coordinates": {
-      "lat": 35.3149724,
-      "lng": -0.0477125
+      "lat": 35.3963,
+      "lng": 0.1406
     }
   },
   "theme": {
@@ -22,9 +22,9 @@
     "background": null
   },
   "prayer": {
-    "calculationMethod": 19,
+    "calculationMethod": 19,       // Algeria Ministry of Religious Affairs ✅
     "asrMethod": 1,
-    "school": 1,
+    "school": 0,                   // FIXED: 0 = Shafi/Maliki (was 1 = Hanafi — wrong for Algeria)
     "iqamaAdjustments": {
       "Fajr": 20,
       "Dhuhr": 10,
@@ -42,8 +42,8 @@
     },
     "shafaq": "general",
     "tune": "0,0,0,0,0,0,0,0,0",
-    "midnightMode": 1,
-    "latitudeAdjustmentMethod": 2,
+    "midnightMode": 0,             // FIXED: 0 = Standard (was 1 = Jafari)
+    "latitudeAdjustmentMethod": 3, // FIXED: 3 = None (was 2 = AngleBased — unnecessary at 35°N)
     "calendarMethod": "MATHEMATICAL",
     "iso8601": false,
     "timezone": "Africa/Algiers",
