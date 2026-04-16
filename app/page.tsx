@@ -99,6 +99,11 @@ export default function HomePage() {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
+      <footer className="fixed bottom-2 right-2 text-white text-xs z-50">
+        <span className="bg-black px-1 py-0.5 rounded">
+          🇵🇸 made by <a href="https://llmaria.co" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-400">llmarifa.co</a>
+        </span>
+      </footer>
     </RTLWrapper>
   );
 }
