@@ -7,8 +7,8 @@
     "city": "معسكر",
     "country": "الجزائر",
     "coordinates": {
-      "lat": 35.2333,
-      "lng": -0.2833
+      "lat": 35.4021,
+      "lng": 0.1400
     }
   },
   "theme": {
@@ -22,7 +22,7 @@
     "background": null
   },
   "prayer": {
-    "calculationMethod": 1,
+    "calculationMethod": 19,
     "asrMethod": 1,
     "school": 0,
     "iqamaAdjustments": {
