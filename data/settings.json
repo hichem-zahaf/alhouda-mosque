@@ -4,11 +4,11 @@
     "logo": null
   },
   "location": {
-    "city": "معسكر",
-    "country": "الجزائر",
+    "city": "Bouhanifia",
+    "country": "Algeria",
     "coordinates": {
-      "lat": 35.4021,
-      "lng": 0.1400
+      "lat": 35.3149724,
+      "lng": -0.0477125
     }
   },
   "theme": {
@@ -24,7 +24,7 @@
   "prayer": {
     "calculationMethod": 19,
     "asrMethod": 1,
-    "school": 0,
+    "school": 1,
     "iqamaAdjustments": {
       "Fajr": 20,
       "Dhuhr": 10,
@@ -42,11 +42,11 @@
     },
     "shafaq": "general",
     "tune": "0,0,0,0,0,0,0,0,0",
-    "midnightMode": 0,
-    "latitudeAdjustmentMethod": 3,
-    "calendarMethod": "HJCoSA",
+    "midnightMode": 1,
+    "latitudeAdjustmentMethod": 2,
+    "calendarMethod": "MATHEMATICAL",
     "iso8601": false,
-    "timezone": "",
+    "timezone": "Africa/Algiers",
     "calendarAdjustment": 0
   },
   "sound": {
