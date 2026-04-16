@@ -2,6 +2,45 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Shafaq, MidnightMode, LatitudeAdjustmentMethod, CalendarMethod } from '@/lib/prayer-times/prayer-times.types';
 
+// Default settings - Mascara, Algeria coordinates and timezone
+const DEFAULT_LOCATION = {
+  city: 'Mascara',
+  country: 'Algeria',
+  coordinates: {
+    lat: 35.3963,
+    lng: 0.1406,
+  },
+};
+
+const DEFAULT_PRAYER = {
+  calculationMethod: 19, // Algeria Ministry
+  asrMethod: 1, // Shafi
+  school: 0, // Shafi
+  iqamaAdjustments: {
+    Fajr: 20,
+    Dhuhr: 10,
+    Asr: 10,
+    Maghrib: 5,
+    Isha: 10,
+  },
+  useManualTimes: false,
+  manualPrayerTimes: {
+    Fajr: '05:00',
+    Dhuhr: '12:30',
+    Asr: '15:45',
+    Maghrib: '18:30',
+    Isha: '19:45',
+  },
+  shafaq: Shafaq.General,
+  tune: '0,0,0,0,0,0,0,0,0',
+  midnightMode: MidnightMode.Standard,
+  latitudeAdjustmentMethod: LatitudeAdjustmentMethod.AngleBased,
+  calendarMethod: CalendarMethod.MATHEMATICAL,
+  iso8601: false,
+  timezone: 'Africa/Algiers',
+  calendarAdjustment: 0,
+};
+
 export interface Coordinates {
   lat: number;
   lng: number;
@@ -115,14 +154,7 @@ const defaultSettings: Settings = {
     name: 'مسجد الهدى',
     logo: null,
   },
-  location: {
-    city: 'Mecca',
-    country: 'Saudi Arabia',
-    coordinates: {
-      lat: 21.4225,
-      lng: 39.8262,
-    },
-  },
+  location: DEFAULT_LOCATION,
   theme: {
     colors: {
       primary: '#1DCD9F',
@@ -135,35 +167,7 @@ const defaultSettings: Settings = {
     backgroundImage: null,
     backgroundImageEnabled: false,
   },
-  prayer: {
-    calculationMethod: 1, // Muslim World League
-    asrMethod: 1, // Shafi
-    school: 0, // Shafi
-    iqamaAdjustments: {
-      Fajr: 10,
-      Dhuhr: 10,
-      Asr: 10,
-      Maghrib: 5,
-      Isha: 10,
-    },
-    useManualTimes: false,
-    manualPrayerTimes: {
-      Fajr: '05:00',
-      Dhuhr: '12:30',
-      Asr: '15:45',
-      Maghrib: '18:30',
-      Isha: '19:45',
-    },
-    // Advanced Aladhan API settings
-    shafaq: Shafaq.General,
-    tune: '0,0,0,0,0,0,0,0,0', // No offsets by default
-    midnightMode: MidnightMode.Standard,
-    latitudeAdjustmentMethod: LatitudeAdjustmentMethod.AngleBased,
-    calendarMethod: CalendarMethod.HJCoSA,
-    iso8601: false,
-    timezone: '',
-    calendarAdjustment: 0,
-  },
+  prayer: DEFAULT_PRAYER,
   sound: {
     enabled: true,
     type: 'adhan',
